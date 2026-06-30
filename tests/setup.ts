@@ -1,9 +1,16 @@
 import '@testing-library/jest-dom/vitest';
 
 import { cleanup } from '@testing-library/react';
-import { afterEach } from 'vitest';
+import { afterAll, afterEach, beforeAll } from 'vitest';
 
-afterEach(() => {
+import { server } from '@/tests/msw';
+
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
+
+afterEach(() => server.resetHandlers());
+
+afterAll(() => {
+  server.close();
   cleanup();
 });
 
