@@ -32,8 +32,14 @@ $line-height-tight: 1.1;
 $line-height-snug: 1.3;
 $line-height-normal: 1.5;
 
-$font-fallback-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-$font-fallback-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+$font-fallback-sans:
+  ui-sans-serif,
+  system-ui,
+  -apple-system,
+  'Segoe UI',
+  Roboto,
+  sans-serif;
+$font-fallback-mono: ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
 $container-max: 1120px;
 

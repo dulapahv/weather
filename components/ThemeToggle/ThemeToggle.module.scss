@@ -1,4 +1,4 @@
-@use "abstracts" as *;
+@use 'abstracts' as *;
 
 .toggle {
   display: inline-flex;
@@ -32,7 +32,7 @@
   display: block;
 }
 
-:global([data-theme="dark"]) {
+:global([data-theme='dark']) {
   .sun {
     display: block;
   }

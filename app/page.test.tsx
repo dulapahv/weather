@@ -1,17 +1,17 @@
-import { expect, test } from "vitest";
-import { render, screen } from "@testing-library/react";
-import { ThemeProvider } from "@/providers/ThemeProvider";
-import Page from "./page";
+import { render, screen } from '@testing-library/react';
+import { expect, test } from 'vitest';
 
-test("renders the hero heading and theme toggle", () => {
+import { ThemeProvider } from '@/providers/ThemeProvider';
+
+import Page from './page';
+
+test('renders the hero heading and theme toggle', () => {
   render(
     <ThemeProvider>
       <Page />
-    </ThemeProvider>,
+    </ThemeProvider>
   );
 
-  expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
-  expect(
-    screen.getByRole("button", { name: /toggle light and dark theme/i }),
-  ).toBeInTheDocument();
+  expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /toggle light and dark theme/i })).toBeInTheDocument();
 });

@@ -1,5 +1,6 @@
-import Link from "next/link";
-import { ThemeToggle } from "@/components/ThemeToggle/ThemeToggle";
+import Link from 'next/link';
+
+import { ThemeToggle } from '@/components/ThemeToggle/ThemeToggle';
 
 export default function Page() {
   return (
