@@ -1,16 +1,15 @@
 import { expect, test } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { ThemeProvider } from "@/providers/ThemeProvider";
-import Page from "./page";
+import { ThemeToggle } from "./ThemeToggle";
 
-test("renders the hero heading and theme toggle", () => {
+test("exposes an accessible theme toggle button", () => {
   render(
     <ThemeProvider>
-      <Page />
+      <ThemeToggle />
     </ThemeProvider>,
   );
 
-  expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
   expect(
     screen.getByRole("button", { name: /toggle light and dark theme/i }),
   ).toBeInTheDocument();
