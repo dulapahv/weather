@@ -6,8 +6,19 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "test": "vitest"
+    "lint": "eslint --cache",
+    "lint:fix": "eslint --fix --cache",
+    "format": "prettier --write **/*.{js,mjs,jsx,ts,tsx,json,css,scss}",
+    "test": "vitest --watch=false",
+    "test:watch": "vitest --watch",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*.{js,mjs,jsx,ts,tsx,json,css,scss}": [
+      "pnpm format",
+      "pnpm lint:fix",
+      "pnpm test"
+    ]
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
@@ -17,6 +28,8 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^21.2.0",
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
@@ -27,7 +40,9 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "husky": "^9.1.7",
     "jsdom": "^29.1.1",
+    "prettier": "^3.9.4",
     "sass": "^1.101.0",
     "typescript": "^5",
     "vite-tsconfig-paths": "^6.1.1",
