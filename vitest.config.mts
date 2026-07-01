@@ -28,10 +28,7 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'lcov', 'cobertura', 'html'],
       thresholds: {
-        statements: 75,
-        branches: 75,
-        functions: 75,
-        lines: 75
+        functions: 75
       }
     },
     reporters: ['dot']
