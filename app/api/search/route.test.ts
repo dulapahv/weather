@@ -23,4 +23,19 @@ describe('GET /api/search', () => {
     const res = await GET(request('q='));
     expect(res.status).toBe(400);
   });
+
+  test('should fall back to Nominatim when Open-Meteo has no match (e.g. a postcode)', async () => {
+    // Open-Meteo finds nothing for a postcode.
+    server.use(
+      http.get('https://geocoding-api.open-meteo.com/v1/search', () =>
+        HttpResponse.json({ results: [] })
+      )
+    );
+
+    const res = await GET(request('q=SW1A%201AA'));
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body.results[0].name).toBe('London');
+    expect(body.results[0].label).toContain('SW1A 1AA');
+  });
 });

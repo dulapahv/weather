@@ -6,9 +6,9 @@ import {
   jsonResponse,
   SEARCH_CACHE_CONTROL
 } from '@/lib/api/http';
-import { fetchGeocoding } from '@/lib/api/provider';
+import { fetchGeocoding, fetchNominatimSearch } from '@/lib/api/provider';
 import { clientKey, rateLimit } from '@/lib/api/rate-limit';
-import { toSearchResults } from '@/lib/api/transform';
+import { nominatimToSearchResults, toSearchResults } from '@/lib/api/transform';
 import { searchQuerySchema } from '@/lib/schemas/search';
 
 export async function GET(request: NextRequest) {
@@ -23,7 +23,16 @@ export async function GET(request: NextRequest) {
 
   try {
     const upstream = await fetchGeocoding(parsed.data);
-    return jsonResponse({ results: toSearchResults(upstream) }, { cache: SEARCH_CACHE_CONTROL });
+    let results = toSearchResults(upstream);
+
+    // Open-Meteo's geocoder is place-name based, so it misses postcodes. Fall
+    // back to Nominatim (which resolves them) only when there's nothing to show.
+    if (results.length === 0) {
+      const places = await fetchNominatimSearch(parsed.data);
+      results = nominatimToSearchResults(places);
+    }
+
+    return jsonResponse({ results }, { cache: SEARCH_CACHE_CONTROL });
   } catch (error) {
     return handleRouteError(error);
   }
