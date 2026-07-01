@@ -7,7 +7,7 @@ import { GET } from './route';
 const request = (qs: string) => new NextRequest(`http://localhost/api/reverse?${qs}`);
 
 describe('GET /api/reverse', () => {
-  test('returns the resolved city label for valid coordinates', async () => {
+  test('should return the resolved city label for valid coordinates', async () => {
     const res = await GET(request('lat=51.5&lon=-0.12'));
 
     expect(res.status).toBe(200);
@@ -16,7 +16,7 @@ describe('GET /api/reverse', () => {
     expect(body.label).toBe('London');
   });
 
-  test('rejects out-of-range coordinates with 400', async () => {
+  test('should reject out-of-range coordinates with 400', async () => {
     const res = await GET(request('lat=999&lon=0'));
     expect(res.status).toBe(400);
   });
