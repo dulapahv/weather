@@ -26,7 +26,13 @@ export default defineConfig({
     coverage: {
       enabled: true,
       provider: 'v8',
-      reporter: ['text', 'lcov', 'cobertura', 'html']
+      reporter: ['text', 'lcov', 'cobertura', 'html'],
+      thresholds: {
+        statements: 75,
+        branches: 75,
+        functions: 75,
+        lines: 75
+      }
     },
     reporters: ['dot']
   }
