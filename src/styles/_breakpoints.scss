@@ -1,0 +1,29 @@
+@use 'sass:map';
+
+$breakpoints: (
+  'tablet': 640px,
+  'desktop': 1024px,
+  'wide': 1280px
+);
+
+// min-width query at the named breakpoint
+@mixin from($name) {
+  $min: map.get($breakpoints, $name);
+  @if $min == null {
+    @error "from(): unknown breakpoint `#{$name}`.";
+  }
+  @media (min-width: $min) {
+    @content;
+  }
+}
+
+// max-width query just below the named breakpoint (exclusive)
+@mixin until($name) {
+  $max: map.get($breakpoints, $name);
+  @if $max == null {
+    @error "until(): unknown breakpoint `#{$name}`.";
+  }
+  @media (max-width: ($max - 0.02px)) {
+    @content;
+  }
+}

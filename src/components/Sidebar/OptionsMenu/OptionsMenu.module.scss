@@ -1,0 +1,82 @@
+@use 'abstracts' as *;
+
+.wrap {
+  position: relative;
+}
+
+.trigger,
+.done {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  border: 1px solid var(--color-border);
+  border-radius: $radius-full;
+  background: var(--color-surface);
+  color: var(--color-muted);
+  cursor: pointer;
+  transition:
+    background 0.15s $ease-standard,
+    color 0.15s $ease-standard,
+    transform 0.15s $ease-standard;
+
+  svg {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  &:hover {
+    background: var(--color-surface-2);
+    color: var(--color-fg);
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+}
+
+.trigger {
+  width: 2.25rem;
+  justify-content: center;
+  padding: 0;
+  color: var(--color-muted);
+}
+
+.menu {
+  position: absolute;
+  z-index: $z-dropdown;
+  bottom: calc(100% + #{$space-1});
+  left: 0;
+  min-width: 11rem;
+  padding: $space-1;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: $radius-md;
+  box-shadow: var(--shadow-2);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  width: 100%;
+  padding: $space-2 $space-3;
+  border: none;
+  border-radius: $radius-sm;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--color-muted);
+  }
+
+  &:hover {
+    background: var(--color-surface-2);
+  }
+}

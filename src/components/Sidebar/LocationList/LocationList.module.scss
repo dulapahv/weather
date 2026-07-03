@@ -1,0 +1,138 @@
+@use 'abstracts' as *;
+
+.empty {
+  color: var(--color-muted);
+  font-size: $font-size-sm;
+  padding: $space-3 $space-2;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+}
+
+.btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+  padding: $space-3 $space-4;
+  border: 1px solid transparent;
+  border-radius: $radius-md;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+
+  &:hover {
+    background: var(--color-surface-2);
+  }
+}
+
+.btnActive {
+  background: var(--color-surface-2);
+  border-color: var(--color-border);
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-snug;
+  @include truncate;
+}
+
+.sub {
+  color: var(--color-muted);
+  font-size: $font-size-xs;
+  font-variant-numeric: tabular-nums;
+}
+
+.status {
+  color: var(--color-muted);
+  font-size: $font-size-sm;
+  @include truncate;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: $space-1;
+  flex-shrink: 0;
+}
+
+.temp {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-semibold;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.hilo {
+  color: var(--color-muted);
+  font-size: $font-size-xs;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.editRow {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-3;
+  border: 1px solid var(--color-border);
+  border-radius: $radius-md;
+  background: var(--color-surface);
+}
+
+.editName {
+  flex: 1;
+  font-weight: $font-weight-medium;
+  @include truncate;
+}
+
+.minus {
+  display: inline-flex;
+  border: none;
+  background: none;
+  color: var(--color-danger);
+  cursor: pointer;
+
+  svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+}
+
+.handle {
+  display: inline-flex;
+  border: none;
+  background: none;
+  color: var(--color-muted);
+  cursor: grab;
+  touch-action: none;
+
+  svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.pinIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-fg);
+}
