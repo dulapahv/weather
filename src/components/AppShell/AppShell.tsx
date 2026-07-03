@@ -30,7 +30,11 @@ const sourceNote = (source: GeoSource): string => {
   return 'Default location';
 };
 
-export const AppShell = () => {
+interface AppShellProps {
+  shareEnabled: boolean;
+}
+
+export const AppShell = ({ shareEnabled }: AppShellProps) => {
   const [collapsed, setCollapsed] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -167,6 +171,7 @@ export const AppShell = () => {
                   weather={weather}
                   locationLabel={selected.label}
                   sourceNote={note}
+                  shareEnabled={shareEnabled}
                 />
                 <HourlyForecast weather={weather} units={units} />
                 <TenDayForecast weather={weather} />

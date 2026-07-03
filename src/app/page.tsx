@@ -1,7 +1,10 @@
+import { isEnabled } from '@/lib/flags';
 import { AppShell } from '@/components/AppShell/AppShell';
 
 const Page = async () => {
-  return <AppShell />;
+  const shareEnabled = await isEnabled('share', true);
+
+  return <AppShell shareEnabled={shareEnabled} />;
 };
 
 export default Page;
