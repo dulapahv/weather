@@ -1,7 +1,7 @@
 import path from 'node:path';
 
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vitest/config';
+import { configDefaults, coverageConfigDefaults, defineConfig } from 'vitest/config';
 
 export default defineConfig({
   plugins: [react()],
@@ -9,28 +9,36 @@ export default defineConfig({
     tsconfigPaths: true,
     alias: {
       // `server-only` throws outside an RSC graph; stub it so server modules can be unit-tested.
-      'server-only': path.resolve(process.cwd(), 'tests/server-only-stub.ts')
+      'server-only': path.resolve(process.cwd(), 'src/tests/server-only-stub.ts')
     }
   },
   css: {
     preprocessorOptions: {
       scss: {
-        loadPaths: [path.join(process.cwd(), 'styles')]
+        loadPaths: [path.join(process.cwd(), 'src', 'styles')]
       }
     }
   },
   test: {
     environment: 'jsdom',
-    setupFiles: ['./tests/setup.ts'],
-    css: true,
+    setupFiles: ['./src/tests/setup.ts'],
+    exclude: [...configDefaults.exclude],
+    css: {
+      include: [/.+/],
+      modules: { classNameStrategy: 'non-scoped' }
+    },
     coverage: {
       enabled: true,
       provider: 'v8',
       reporter: ['text', 'lcov', 'cobertura', 'html'],
+      exclude: [...coverageConfigDefaults.exclude, 'components/AppShell/**'],
       thresholds: {
-        functions: 75
+        lines: 90
       }
     },
-    reporters: ['dot']
+    reporters: ['default', 'junit'],
+    outputFile: {
+      junit: 'junit.xml'
+    }
   }
 });

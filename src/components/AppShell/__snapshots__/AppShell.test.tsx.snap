@@ -1,0 +1,965 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AppShell (home page) > should match the snapshot for the empty state 1`] = `
+<DocumentFragment>
+  <a
+    class="skipLink"
+    href="#main"
+  >
+    Skip to main content
+  </a>
+  <div
+    class="layout"
+  >
+    <aside
+      aria-label="Saved locations"
+      class="sidebar"
+    >
+      <div
+        class="search"
+      >
+        <div
+          class="wrap"
+        >
+          <div
+            class="field"
+          >
+            <svg
+              aria-hidden="true"
+              class="searchIcon"
+              fill="currentColor"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z"
+              />
+            </svg>
+            <input
+              aria-autocomplete="list"
+              aria-controls="_r_2_"
+              aria-expanded="false"
+              class="input"
+              placeholder="Search for a city, or postcode..."
+              role="combobox"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <nav
+        aria-label="Locations"
+        class="scroll"
+      >
+        <p
+          class="empty"
+        >
+          No locations yet — search to add one.
+        </p>
+      </nav>
+      <div
+        class="foot"
+      >
+        <div
+          class="wrap"
+        >
+          <button
+            aria-expanded="false"
+            aria-haspopup="menu"
+            aria-label="List options"
+            class="trigger"
+            type="button"
+          >
+            <svg
+              fill="currentColor"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M156,128a28,28,0,1,1-28-28A28,28,0,0,1,156,128ZM48,100a28,28,0,1,0,28,28A28,28,0,0,0,48,100Zm160,0a28,28,0,1,0,28,28A28,28,0,0,0,208,100Z"
+              />
+            </svg>
+          </button>
+        </div>
+        <button
+          aria-expanded="true"
+          aria-label="Collapse panel"
+          class="collapseBtn"
+          title="Collapse panel"
+          type="button"
+        >
+          <svg
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M168.49,199.51a12,12,0,0,1-17,17l-80-80a12,12,0,0,1,0-17l80-80a12,12,0,0,1,17,17L97,128Z"
+            />
+          </svg>
+        </button>
+      </div>
+    </aside>
+    <main
+      class="detail"
+      id="main"
+    >
+      <button
+        aria-expanded="false"
+        aria-label="Open locations panel"
+        class="menuFab"
+        type="button"
+      >
+        <svg
+          fill="currentColor"
+          height="1em"
+          viewBox="0 0 256 256"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M228,128a12,12,0,0,1-12,12H40a12,12,0,0,1,0-24H216A12,12,0,0,1,228,128ZM40,76H216a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24ZM216,180H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Z"
+          />
+        </svg>
+      </button>
+      <div
+        class="detailInner"
+      >
+        <div
+          class="state"
+        >
+          <svg
+            aria-hidden="true"
+            class="emptyMark"
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M139.84,84.41v0a68.22,68.22,0,0,0-41.65,46v-.11a44.08,44.08,0,0,0-38.54,5h0a48,48,0,1,1,80.19-50.94Z"
+              opacity="0.2"
+            />
+            <path
+              d="M164,72a76.2,76.2,0,0,0-20.26,2.73,55.63,55.63,0,0,0-9.41-11.54l9.51-13.57a8,8,0,1,0-13.11-9.18L121.22,54A55.9,55.9,0,0,0,96,48c-.58,0-1.16,0-1.74,0L91.37,31.71a8,8,0,1,0-15.75,2.77L78.5,50.82A56.1,56.1,0,0,0,55.23,65.67L41.61,56.14a8,8,0,1,0-9.17,13.11L46,78.77A55.55,55.55,0,0,0,40,104c0,.57,0,1.15,0,1.72L23.71,108.6a8,8,0,0,0,1.38,15.88,8.24,8.24,0,0,0,1.39-.12l16.32-2.88a55.74,55.74,0,0,0,5.86,12.42A52,52,0,0,0,84,224h80a76,76,0,0,0,0-152ZM56,104a40,40,0,0,1,72.54-23.24,76.26,76.26,0,0,0-35.62,40,52.14,52.14,0,0,0-31,4.17A40,40,0,0,1,56,104ZM164,208H84a36,36,0,1,1,4.78-71.69c-.37,2.37-.63,4.79-.77,7.23a8,8,0,0,0,16,.92,58.91,58.91,0,0,1,1.88-11.81c0-.16.09-.32.12-.48A60.06,60.06,0,1,1,164,208Z"
+            />
+          </svg>
+          <p
+            class="stateText"
+          >
+            Search for a city or postcode to see its weather.
+          </p>
+        </div>
+      </div>
+    </main>
+  </div>
+  <p
+    aria-live="polite"
+    class="srStatus"
+    role="status"
+  />
+  <dialog
+    class="dialog"
+  />
+</DocumentFragment>
+`;
+
+exports[`AppShell (home page) > should match the snapshot for the loaded home page 1`] = `
+<DocumentFragment>
+  <a
+    class="skipLink"
+    href="#main"
+  >
+    Skip to main content
+  </a>
+  <div
+    class="layout"
+  >
+    <aside
+      aria-label="Saved locations"
+      class="sidebar"
+    >
+      <div
+        class="search"
+      >
+        <div
+          class="wrap"
+        >
+          <div
+            class="field"
+          >
+            <svg
+              aria-hidden="true"
+              class="searchIcon"
+              fill="currentColor"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z"
+              />
+            </svg>
+            <input
+              aria-autocomplete="list"
+              aria-controls="_r_0_"
+              aria-expanded="false"
+              class="input"
+              placeholder="Search for a city, or postcode..."
+              role="combobox"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <nav
+        aria-label="Locations"
+        class="scroll"
+      >
+        <ul
+          class="list"
+        >
+          <li>
+            <button
+              aria-current="true"
+              class="btn btnActive"
+              type="button"
+            >
+              <span
+                class="left"
+              >
+                <span
+                  class="name"
+                >
+                  London
+                </span>
+                <span
+                  class="sub"
+                >
+                  My Location
+                </span>
+                <span
+                  class="status"
+                >
+                  Partly cloudy
+                </span>
+              </span>
+              <span
+                class="right"
+              >
+                <span
+                  class="temp"
+                >
+                  25°
+                </span>
+                <span
+                  class="hilo"
+                >
+                  H:33° L:22°
+                </span>
+              </span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <div
+        class="foot"
+      >
+        <div
+          class="wrap"
+        >
+          <button
+            aria-expanded="false"
+            aria-haspopup="menu"
+            aria-label="List options"
+            class="trigger"
+            type="button"
+          >
+            <svg
+              fill="currentColor"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M156,128a28,28,0,1,1-28-28A28,28,0,0,1,156,128ZM48,100a28,28,0,1,0,28,28A28,28,0,0,0,48,100Zm160,0a28,28,0,1,0,28,28A28,28,0,0,0,208,100Z"
+              />
+            </svg>
+          </button>
+        </div>
+        <button
+          aria-expanded="true"
+          aria-label="Collapse panel"
+          class="collapseBtn"
+          title="Collapse panel"
+          type="button"
+        >
+          <svg
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M168.49,199.51a12,12,0,0,1-17,17l-80-80a12,12,0,0,1,0-17l80-80a12,12,0,0,1,17,17L97,128Z"
+            />
+          </svg>
+        </button>
+      </div>
+    </aside>
+    <main
+      class="detail"
+      id="main"
+    >
+      <button
+        aria-expanded="false"
+        aria-label="Open locations panel"
+        class="menuFab"
+        type="button"
+      >
+        <svg
+          fill="currentColor"
+          height="1em"
+          viewBox="0 0 256 256"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M228,128a12,12,0,0,1-12,12H40a12,12,0,0,1,0-24H216A12,12,0,0,1,228,128ZM40,76H216a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24ZM216,180H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Z"
+          />
+        </svg>
+      </button>
+      <div
+        class="detailInner"
+      >
+        <div
+          class="stack"
+        >
+          <section
+            aria-label="Current weather for London"
+            class="card"
+          >
+            <header
+              class="head"
+            >
+              <div
+                class="headText"
+              >
+                <h2
+                  class="place"
+                >
+                  London
+                </h2>
+                <p
+                  class="source"
+                >
+                  Your location
+                </p>
+              </div>
+            </header>
+            <div
+              class="hero"
+            >
+              <img
+                alt="Partly cloudy"
+                class="icon"
+                data-nimg="1"
+                decoding="async"
+                height="104"
+                src="/_next/image?url=%2Ficons%2Fpartly-cloudy%404x.png&w=256&q=75"
+                srcset="/_next/image?url=%2Ficons%2Fpartly-cloudy%404x.png&w=128&q=75 1x, /_next/image?url=%2Ficons%2Fpartly-cloudy%404x.png&w=256&q=75 2x"
+                style="color: transparent;"
+                width="104"
+              />
+              <p
+                class="temp"
+              >
+                25°
+              </p>
+              <div
+                class="meta"
+              >
+                <p
+                  class="desc"
+                >
+                  Partly cloudy
+                </p>
+                <p
+                  class="feels"
+                >
+                  Feels like 26°
+                </p>
+                <p
+                  class="range"
+                >
+                  H: 33° · L: 22°
+                </p>
+              </div>
+            </div>
+          </section>
+          <section
+            aria-label="Hourly forecast"
+            class="card"
+          >
+            <h3
+              class="heading"
+            >
+              <svg
+                aria-hidden="true"
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 256 256"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm68-84a12,12,0,0,1-12,12H128a12,12,0,0,1-12-12V72a12,12,0,0,1,24,0v44h44A12,12,0,0,1,196,128Z"
+                />
+              </svg>
+              Hourly
+            </h3>
+            <ul
+              aria-label="Hourly forecast"
+              class="track"
+              tabindex="0"
+            >
+              <li
+                class="hour"
+              >
+                <span
+                  class="time"
+                >
+                  12 AM
+                </span>
+                <img
+                  alt="Clear sky"
+                  data-nimg="1"
+                  decoding="async"
+                  height="40"
+                  loading="lazy"
+                  src="/_next/image?url=%2Ficons%2Fclear%404x.png&w=96&q=75"
+                  srcset="/_next/image?url=%2Ficons%2Fclear%404x.png&w=48&q=75 1x, /_next/image?url=%2Ficons%2Fclear%404x.png&w=96&q=75 2x"
+                  style="color: transparent;"
+                  width="40"
+                />
+                <span
+                  class="temp"
+                >
+                  26°
+                </span>
+                <span
+                  class="pop"
+                />
+              </li>
+              <li
+                class="hour"
+              >
+                <span
+                  class="time"
+                >
+                  6 AM
+                </span>
+                <img
+                  alt="Light drizzle"
+                  data-nimg="1"
+                  decoding="async"
+                  height="40"
+                  loading="lazy"
+                  src="/_next/image?url=%2Ficons%2Flight-drizzle%404x.png&w=96&q=75"
+                  srcset="/_next/image?url=%2Ficons%2Flight-drizzle%404x.png&w=48&q=75 1x, /_next/image?url=%2Ficons%2Flight-drizzle%404x.png&w=96&q=75 2x"
+                  style="color: transparent;"
+                  width="40"
+                />
+                <span
+                  class="temp"
+                >
+                  23°
+                </span>
+                <span
+                  class="pop"
+                />
+              </li>
+            </ul>
+          </section>
+          <section
+            aria-label="10-day forecast"
+            class="card"
+          >
+            <h3
+              class="heading"
+            >
+              <svg
+                aria-hidden="true"
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 256 256"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M208,28H188V24a12,12,0,0,0-24,0v4H92V24a12,12,0,0,0-24,0v4H48A20,20,0,0,0,28,48V208a20,20,0,0,0,20,20H208a20,20,0,0,0,20-20V48A20,20,0,0,0,208,28ZM68,52a12,12,0,0,0,24,0h72a12,12,0,0,0,24,0h16V76H52V52ZM52,204V100H204V204Zm92-76a16,16,0,1,1-16-16A16,16,0,0,1,144,128Zm48,0a16,16,0,1,1-16-16A16,16,0,0,1,192,128ZM96,176a16,16,0,1,1-16-16A16,16,0,0,1,96,176Zm48,0a16,16,0,1,1-16-16A16,16,0,0,1,144,176Zm48,0a16,16,0,1,1-16-16A16,16,0,0,1,192,176Z"
+                />
+              </svg>
+              10-day forecast
+            </h3>
+            <ul
+              class="list"
+            >
+              <li
+                class="row"
+              >
+                <span
+                  class="day"
+                >
+                  Today
+                </span>
+                <img
+                  alt="Light drizzle"
+                  class="icon"
+                  data-nimg="1"
+                  decoding="async"
+                  height="32"
+                  loading="lazy"
+                  src="/_next/image?url=%2Ficons%2Flight-drizzle%404x.png&w=64&q=75"
+                  srcset="/_next/image?url=%2Ficons%2Flight-drizzle%404x.png&w=32&q=75 1x, /_next/image?url=%2Ficons%2Flight-drizzle%404x.png&w=64&q=75 2x"
+                  style="color: transparent;"
+                  width="32"
+                />
+                <span
+                  class="pop"
+                >
+                  57%
+                </span>
+                <span
+                  class="low"
+                >
+                  22°
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="bar"
+                >
+                  <span
+                    class="fill"
+                    style="left: 0%; right: 0%;"
+                  />
+                  <span
+                    class="marker"
+                    style="left: 27.35849056603772%;"
+                    title="Now: 25°"
+                  />
+                </span>
+                <span
+                  class="high"
+                >
+                  33°
+                </span>
+              </li>
+            </ul>
+          </section>
+          <section
+            aria-label="Weather details"
+            class="card"
+          >
+            <h3
+              class="heading"
+            >
+              <svg
+                aria-hidden="true"
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 256 256"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M100,36H56A20,20,0,0,0,36,56v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,100,36ZM96,96H60V60H96ZM200,36H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,200,36Zm-4,60H160V60h36Zm-96,40H56a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,100,136Zm-4,60H60V160H96Zm104-60H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,200,136Zm-4,60H160V160h36Z"
+                />
+              </svg>
+              Details
+            </h3>
+            <dl
+              class="grid"
+            >
+              <div
+                class="metric"
+              >
+                <dt>
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M24,104a12,12,0,0,1,0-24h96a12,12,0,0,0,0-24,15.07,15.07,0,0,0-10.26,4.45,12,12,0,0,1-17-16.9A39.34,39.34,0,0,1,120,32a36,36,0,0,1,0,72ZM208,68a39.34,39.34,0,0,0-27.3,11.55,12,12,0,0,0,17,16.9A15.07,15.07,0,0,1,208,92a12,12,0,0,1,0,24H32a12,12,0,0,0,0,24H208a36,36,0,0,0,0-72Zm-56,84H40a12,12,0,0,0,0,24H152a12,12,0,0,1,0,24,15.11,15.11,0,0,1-10.27-4.45,12,12,0,1,0-17,16.9A39.34,39.34,0,0,0,152,224a36,36,0,0,0,0-72Z"
+                    />
+                  </svg>
+                  Wind
+                </dt>
+                <dd>
+                  14 km/h
+                </dd>
+              </div>
+              <div
+                class="metric"
+              >
+                <dt>
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M134.88,6.17a12,12,0,0,0-13.76,0,259,259,0,0,0-42.18,39C50.85,77.43,36,111.62,36,144a92,92,0,0,0,184,0C220,66.64,138.36,8.6,134.88,6.17ZM128,212a68.07,68.07,0,0,1-68-68c0-33.31,20-63.37,36.7-82.71A249.35,249.35,0,0,1,128,31.11a249.35,249.35,0,0,1,31.3,30.18C176,80.63,196,110.69,196,144A68.07,68.07,0,0,1,128,212Zm49.62-52.4a52,52,0,0,1-34,34,12.2,12.2,0,0,1-3.6.55,12,12,0,0,1-3.6-23.45,28,28,0,0,0,18.32-18.32,12,12,0,0,1,22.9,7.2Z"
+                    />
+                  </svg>
+                  Humidity
+                </dt>
+                <dd>
+                  64%
+                </dd>
+              </div>
+              <div
+                class="metric"
+              >
+                <dt>
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M251,123.13c-.37-.81-9.13-20.26-28.48-39.61C196.63,57.67,164,44,128,44S59.37,57.67,33.51,83.52C14.16,102.87,5.4,122.32,5,123.13a12.08,12.08,0,0,0,0,9.75c.37.82,9.13,20.26,28.49,39.61C59.37,198.34,92,212,128,212s68.63-13.66,94.48-39.51c19.36-19.35,28.12-38.79,28.49-39.61A12.08,12.08,0,0,0,251,123.13Zm-46.06,33C183.47,177.27,157.59,188,128,188s-55.47-10.73-76.91-31.88A130.36,130.36,0,0,1,29.52,128,130.45,130.45,0,0,1,51.09,99.89C72.54,78.73,98.41,68,128,68s55.46,10.73,76.91,31.89A130.36,130.36,0,0,1,226.48,128,130.45,130.45,0,0,1,204.91,156.12ZM128,84a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,84Zm0,64a20,20,0,1,1,20-20A20,20,0,0,1,128,148Z"
+                    />
+                  </svg>
+                  Visibility
+                </dt>
+                <dd>
+                  37 km
+                </dd>
+              </div>
+              <div
+                class="metric"
+              >
+                <dt>
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M209.88,69.83A115.19,115.19,0,0,0,128,36h-.41C63.85,36.22,12,88.76,12,153.13V176a20,20,0,0,0,20,20H224a20,20,0,0,0,20-20V152A115.25,115.25,0,0,0,209.88,69.83ZM220,172H127.32l46.44-65A12,12,0,1,0,154.24,93L97.82,172H36V153.13c0-1.72,0-3.43.14-5.13H56a12,12,0,0,0,0-24H40.62c10.91-33.39,40-58.52,75.38-63.21V80a12,12,0,0,0,24,0V60.8A92,92,0,0,1,215.66,124H200a12,12,0,0,0,0,24h19.9c.06,1.33.1,2.66.1,4Z"
+                    />
+                  </svg>
+                  Pressure
+                </dt>
+                <dd>
+                  1,015 hPa
+                </dd>
+              </div>
+              <div
+                class="metric"
+              >
+                <dt>
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M116,36V20a12,12,0,0,1,24,0V36a12,12,0,0,1-24,0Zm80,92a68,68,0,1,1-68-68A68.07,68.07,0,0,1,196,128Zm-24,0a44,44,0,1,0-44,44A44.05,44.05,0,0,0,172,128ZM51.51,68.49a12,12,0,1,0,17-17l-12-12a12,12,0,0,0-17,17Zm0,119-12,12a12,12,0,0,0,17,17l12-12a12,12,0,1,0-17-17ZM196,72a12,12,0,0,0,8.49-3.51l12-12a12,12,0,0,0-17-17l-12,12A12,12,0,0,0,196,72Zm8.49,115.51a12,12,0,0,0-17,17l12,12a12,12,0,0,0,17-17ZM48,128a12,12,0,0,0-12-12H20a12,12,0,0,0,0,24H36A12,12,0,0,0,48,128Zm80,80a12,12,0,0,0-12,12v16a12,12,0,0,0,24,0V220A12,12,0,0,0,128,208Zm108-92H220a12,12,0,0,0,0,24h16a12,12,0,0,0,0-24Z"
+                    />
+                  </svg>
+                  UV index
+                </dt>
+                <dd>
+                  0 · Low
+                </dd>
+              </div>
+              <div
+                class="metric"
+              >
+                <dt>
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M243.93,126.3A116.43,116.43,0,0,0,49,50.81a115.45,115.45,0,0,0-37,75.49A20,20,0,0,0,32,148h84v52a36,36,0,0,0,72,0,12,12,0,0,0-24,0,12,12,0,0,1-24,0V148h84a20,20,0,0,0,20-21.7ZM100.41,124c2.67-39.33,18.08-63.51,27.59-74.87,9.52,11.39,24.92,35.56,27.59,74.87ZM65.31,68.46A92,92,0,0,1,99,48.65C88.8,65.25,78.39,90.08,76.36,124H36.44A91.56,91.56,0,0,1,65.31,68.46ZM179.64,124c-2-33.92-12.44-58.75-22.65-75.35A92.19,92.19,0,0,1,219.56,124Z"
+                    />
+                  </svg>
+                  Precipitation
+                </dt>
+                <dd>
+                  0 mm
+                </dd>
+              </div>
+              <div
+                class="metric"
+              >
+                <dt>
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M240,148H203.89c.07-1.33.11-2.66.11-4a76,76,0,0,0-152,0c0,1.34,0,2.67.11,4H16a12,12,0,0,0,0,24H240a12,12,0,0,0,0-24ZM76,144a52,52,0,0,1,104,0c0,1.34-.07,2.67-.17,4H76.17C76.07,146.67,76,145.34,76,144Zm144,56a12,12,0,0,1-12,12H48a12,12,0,0,1,0-24H208A12,12,0,0,1,220,200ZM12.62,92.21a12,12,0,0,1,15.17-7.59l12,4a12,12,0,1,1-7.58,22.77l-12-4A12,12,0,0,1,12.62,92.21Zm56-48.41a12,12,0,1,1,22.76-7.59l4,12A12,12,0,1,1,72.62,55.8Zm140,60a12,12,0,0,1,7.59-15.18l12-4a12,12,0,0,1,7.58,22.77l-12,4a12,12,0,0,1-15.17-7.59Zm-48-55.59,4-12a12,12,0,1,1,22.76,7.59l-4,12a12,12,0,1,1-22.76-7.59Z"
+                    />
+                  </svg>
+                  Sunrise
+                </dt>
+                <dd>
+                  4:44 AM
+                </dd>
+              </div>
+              <div
+                class="metric"
+              >
+                <dt>
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    height="1em"
+                    viewBox="0 0 256 256"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M240,148H203.89c.07-1.33.11-2.66.11-4a76,76,0,0,0-152,0c0,1.34,0,2.67.11,4H16a12,12,0,0,0,0,24H240a12,12,0,0,0,0-24ZM76,144a52,52,0,0,1,104,0c0,1.34-.07,2.67-.17,4H76.17C76.07,146.67,76,145.34,76,144Zm144,56a12,12,0,0,1-12,12H48a12,12,0,0,1,0-24H208A12,12,0,0,1,220,200ZM12.62,92.21a12,12,0,0,1,15.17-7.59l12,4a12,12,0,1,1-7.58,22.77l-12-4A12,12,0,0,1,12.62,92.21Zm56-48.41a12,12,0,1,1,22.76-7.59l4,12A12,12,0,1,1,72.62,55.8Zm140,60a12,12,0,0,1,7.59-15.18l12-4a12,12,0,0,1,7.58,22.77l-12,4a12,12,0,0,1-15.17-7.59Zm-48-55.59,4-12a12,12,0,1,1,22.76,7.59l-4,12a12,12,0,1,1-22.76-7.59Z"
+                    />
+                  </svg>
+                  Sunset
+                </dt>
+                <dd>
+                  9:21 PM
+                </dd>
+              </div>
+            </dl>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+  <p
+    aria-live="polite"
+    class="srStatus"
+    role="status"
+  >
+    Weather for London: 25°, Partly cloudy
+  </p>
+  <dialog
+    class="dialog"
+  />
+</DocumentFragment>
+`;
+
+exports[`AppShell (home page) > should match the snapshot while locating (loading state) 1`] = `
+<DocumentFragment>
+  <a
+    class="skipLink"
+    href="#main"
+  >
+    Skip to main content
+  </a>
+  <div
+    class="layout"
+  >
+    <aside
+      aria-label="Saved locations"
+      class="sidebar"
+    >
+      <div
+        class="search"
+      >
+        <div
+          class="wrap"
+        >
+          <div
+            class="field"
+          >
+            <svg
+              aria-hidden="true"
+              class="searchIcon"
+              fill="currentColor"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z"
+              />
+            </svg>
+            <input
+              aria-autocomplete="list"
+              aria-controls="_r_1_"
+              aria-expanded="false"
+              class="input"
+              placeholder="Search for a city, or postcode..."
+              role="combobox"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <nav
+        aria-label="Locations"
+        class="scroll"
+      >
+        <p
+          class="empty"
+        >
+          No locations yet — search to add one.
+        </p>
+      </nav>
+      <div
+        class="foot"
+      >
+        <div
+          class="wrap"
+        >
+          <button
+            aria-expanded="false"
+            aria-haspopup="menu"
+            aria-label="List options"
+            class="trigger"
+            type="button"
+          >
+            <svg
+              fill="currentColor"
+              height="1em"
+              viewBox="0 0 256 256"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M156,128a28,28,0,1,1-28-28A28,28,0,0,1,156,128ZM48,100a28,28,0,1,0,28,28A28,28,0,0,0,48,100Zm160,0a28,28,0,1,0,28,28A28,28,0,0,0,208,100Z"
+              />
+            </svg>
+          </button>
+        </div>
+        <button
+          aria-expanded="true"
+          aria-label="Collapse panel"
+          class="collapseBtn"
+          title="Collapse panel"
+          type="button"
+        >
+          <svg
+            fill="currentColor"
+            height="1em"
+            viewBox="0 0 256 256"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M168.49,199.51a12,12,0,0,1-17,17l-80-80a12,12,0,0,1,0-17l80-80a12,12,0,0,1,17,17L97,128Z"
+            />
+          </svg>
+        </button>
+      </div>
+    </aside>
+    <main
+      class="detail"
+      id="main"
+    >
+      <button
+        aria-expanded="false"
+        aria-label="Open locations panel"
+        class="menuFab"
+        type="button"
+      >
+        <svg
+          fill="currentColor"
+          height="1em"
+          viewBox="0 0 256 256"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M228,128a12,12,0,0,1-12,12H40a12,12,0,0,1,0-24H216A12,12,0,0,1,228,128ZM40,76H216a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24ZM216,180H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Z"
+          />
+        </svg>
+      </button>
+      <div
+        class="detailInner"
+      >
+        <div
+          aria-busy="true"
+          aria-label="Loading weather"
+          class="card"
+        >
+          <div
+            class="skeleton skelHead"
+          />
+          <div
+            class="skeleton skelHero"
+          />
+          <div
+            class="skelGrid"
+          >
+            <div
+              class="skeleton skelMetric"
+            />
+            <div
+              class="skeleton skelMetric"
+            />
+            <div
+              class="skeleton skelMetric"
+            />
+            <div
+              class="skeleton skelMetric"
+            />
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <p
+    aria-live="polite"
+    class="srStatus"
+    role="status"
+  >
+    Loading weather...
+  </p>
+  <dialog
+    class="dialog"
+  />
+</DocumentFragment>
+`;
