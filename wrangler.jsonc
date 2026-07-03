@@ -23,7 +23,8 @@
           "binding": "WORKER_SELF_REFERENCE",
           "service": "weather-dev"
         }
-      ]
+      ],
+      "flagship": [{ "binding": "FLAGS", "app_id": "388fc9a8-0f3f-4cfd-aae5-b7da82ee5811" }]
     },
     "production": {
       "name": "weather",
@@ -38,7 +39,8 @@
           "binding": "WORKER_SELF_REFERENCE",
           "service": "weather"
         }
-      ]
+      ],
+      "flagship": [{ "binding": "FLAGS", "app_id": "426aa5d5-63b1-4e2c-9a05-03f9ad809fff" }]
     }
   },
   "observability": {
