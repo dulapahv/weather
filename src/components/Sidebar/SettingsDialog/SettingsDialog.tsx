@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { XIcon } from '@phosphor-icons/react/dist/ssr';
 import { useTheme } from 'next-themes';
 
+import { exportPreferences, importPreferencesFile } from '@/lib/preferences-io';
 import { usePreferences } from '@/store/preferences';
 
 import styles from './SettingsDialog.module.scss';
@@ -76,10 +77,21 @@ export const SettingsDialog = ({ open, onClose }: Props) => {
 };
 
 const DialogBody = ({ onClose }: { onClose: () => void }) => {
+  const [importError, setImportError] = useState(false);
+
   const units = usePreferences(s => s.units);
   const setUnit = usePreferences(s => s.setUnit);
   const resetDefaults = usePreferences(s => s.resetDefaults);
   const { theme, setTheme } = useTheme();
+
+  async function handleImport(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    const res = await importPreferencesFile(file);
+    setImportError(!res.ok);
+    if (res.theme) setTheme(res.theme);
+  }
 
   return (
     <>
@@ -140,17 +152,26 @@ const DialogBody = ({ onClose }: { onClose: () => void }) => {
         />
 
         <div className={styles.data}>
-          <button type="button" className={styles.action}>
+          <button
+            type="button"
+            className={styles.action}
+            onClick={() => exportPreferences(theme ?? 'system')}
+          >
             Export
           </button>
           <label className={styles.action}>
             Import
-            <input type="file" accept="application/json" hidden />
+            <input type="file" accept="application/json" onChange={handleImport} hidden />
           </label>
           <button type="button" className={styles.danger} onClick={resetDefaults}>
             Restore defaults
           </button>
         </div>
+        {importError ? (
+          <p className={styles.error} role="alert">
+            That file isn&apos;t a valid preferences export.
+          </p>
+        ) : null}
       </div>
     </>
   );
