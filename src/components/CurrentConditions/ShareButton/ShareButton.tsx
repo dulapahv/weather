@@ -12,10 +12,10 @@ interface Props {
   longitude: number;
 }
 
-export function ShareButton({ name, latitude, longitude }: Props) {
+export const ShareButton = ({ name, latitude, longitude }: Props) => {
   const [copied, setCopied] = useState(false);
 
-  async function share() {
+  const share = async () => {
     const params = new URLSearchParams({
       lat: String(latitude),
       lon: String(longitude),
@@ -38,7 +38,7 @@ export function ShareButton({ name, latitude, longitude }: Props) {
     } catch {
       // Clipboard unavailable
     }
-  }
+  };
 
   return (
     <button type="button" className={styles.share} onClick={share} aria-label={`Share ${name}`}>
@@ -46,4 +46,4 @@ export function ShareButton({ name, latitude, longitude }: Props) {
       {copied ? 'Copied' : 'Share'}
     </button>
   );
-}
+};

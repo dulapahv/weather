@@ -4,9 +4,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { ShareButton } from './ShareButton';
 
-function define(prop: 'share' | 'clipboard', value: unknown) {
+const define = (prop: 'share' | 'clipboard', value: unknown) => {
   Object.defineProperty(navigator, prop, { value, configurable: true });
-}
+};
 
 describe('ShareButton', () => {
   afterEach(() => {

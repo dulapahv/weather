@@ -34,7 +34,7 @@ export interface ImportResult {
   theme?: string;
 }
 
-export function exportPreferences(theme: string): void {
+export const exportPreferences = (theme: string): void => {
   const { units, locations } = usePreferences.getState();
   const json = JSON.stringify({ theme, units, locations }, null, 2);
   const url = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
@@ -43,9 +43,9 @@ export function exportPreferences(theme: string): void {
   a.download = 'weather-preferences.json';
   a.click();
   URL.revokeObjectURL(url);
-}
+};
 
-export function importPreferencesFromText(text: string): ImportResult {
+export const importPreferencesFromText = (text: string): ImportResult => {
   let data: unknown;
   try {
     data = JSON.parse(text);
@@ -59,8 +59,8 @@ export function importPreferencesFromText(text: string): ImportResult {
     locations: parsed.data.locations
   });
   return { ok: true, theme: parsed.data.theme };
-}
+};
 
-export async function importPreferencesFile(file: File): Promise<ImportResult> {
+export const importPreferencesFile = async (file: File): Promise<ImportResult> => {
   return importPreferencesFromText(await file.text());
-}
+};
