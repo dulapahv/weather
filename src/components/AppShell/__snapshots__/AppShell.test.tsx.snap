@@ -115,6 +115,7 @@ exports[`AppShell (home page) > should match the snapshot for the empty state 1`
         aria-expanded="false"
         aria-label="Open locations panel"
         class="menuFab"
+        title="Open locations panel"
         type="button"
       >
         <svg
@@ -327,6 +328,7 @@ exports[`AppShell (home page) > should match the snapshot for the loaded home pa
         aria-expanded="false"
         aria-label="Open locations panel"
         class="menuFab"
+        title="Open locations panel"
         type="button"
       >
         <svg
@@ -903,6 +905,7 @@ exports[`AppShell (home page) > should match the snapshot while locating (loadin
         aria-expanded="false"
         aria-label="Open locations panel"
         class="menuFab"
+        title="Open locations panel"
         type="button"
       >
         <svg
