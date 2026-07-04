@@ -24,6 +24,12 @@
           "service": "weather-dev"
         }
       ],
+      "kv_namespaces": [
+        {
+          "binding": "RATE_LIMIT_KV",
+          "id": "a055ca47196248f5a40a17aebeca4d5a"
+        }
+      ],
       "flagship": [{ "binding": "FLAGS", "app_id": "388fc9a8-0f3f-4cfd-aae5-b7da82ee5811" }]
     },
     "production": {
@@ -38,6 +44,12 @@
         {
           "binding": "WORKER_SELF_REFERENCE",
           "service": "weather"
+        }
+      ],
+      "kv_namespaces": [
+        {
+          "binding": "RATE_LIMIT_KV",
+          "id": "2f0360f36be14db58fd0a8cb4a5d9db7"
         }
       ],
       "flagship": [{ "binding": "FLAGS", "app_id": "426aa5d5-63b1-4e2c-9a05-03f9ad809fff" }]
