@@ -126,6 +126,7 @@ export const AppShell = ({ shareEnabled }: AppShellProps) => {
             type="button"
             className={styles.expandBtn}
             onClick={() => setCollapsed(false)}
+            title="Show locations panel"
             aria-label="Show locations panel"
           >
             <ListIcon weight="bold" />
@@ -158,6 +159,7 @@ export const AppShell = ({ shareEnabled }: AppShellProps) => {
             type="button"
             className={styles.menuFab}
             onClick={() => setMenuOpen(true)}
+            title="Open locations panel"
             aria-label="Open locations panel"
             aria-expanded={menuOpen}
           >
