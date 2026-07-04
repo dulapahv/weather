@@ -84,14 +84,14 @@ const DialogBody = ({ onClose }: { onClose: () => void }) => {
   const resetDefaults = usePreferences(s => s.resetDefaults);
   const { theme, setTheme } = useTheme();
 
-  async function handleImport(e: React.ChangeEvent<HTMLInputElement>) {
+  const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     e.target.value = '';
     if (!file) return;
     const res = await importPreferencesFile(file);
     setImportError(!res.ok);
     if (res.theme) setTheme(res.theme);
-  }
+  };
 
   return (
     <>

@@ -10,7 +10,7 @@ interface FlagshipBinding {
   ): Promise<boolean>;
 }
 
-export async function isEnabled(flag: string, fallback = false): Promise<boolean> {
+export const isEnabled = async (flag: string, fallback = false): Promise<boolean> => {
   try {
     const { env } = getCloudflareContext();
     const flags = (env as unknown as { FLAGS?: FlagshipBinding }).FLAGS;
@@ -19,4 +19,4 @@ export async function isEnabled(flag: string, fallback = false): Promise<boolean
   } catch {
     return fallback;
   }
-}
+};
