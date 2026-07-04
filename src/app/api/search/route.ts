@@ -1,5 +1,6 @@
 import type { NextRequest } from 'next/server';
 
+import { getRateLimitStore } from '@/lib/api/bindings';
 import {
   errorResponse,
   handleRouteError,
@@ -12,7 +13,8 @@ import { nominatimToSearchResults, toSearchResults } from '@/lib/api/transform';
 import { searchQuerySchema } from '@/lib/schemas/search';
 
 export const GET = async (request: NextRequest) => {
-  if (!rateLimit(`search:${clientKey(request)}`).ok) {
+  const limit = await rateLimit(getRateLimitStore(), `search:${clientKey(request)}`);
+  if (!limit.ok) {
     return errorResponse(429, 'Too many requests. Please slow down and try again.');
   }
 
