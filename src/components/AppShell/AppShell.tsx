@@ -2,7 +2,12 @@
 
 import { useEffect, useState } from 'react';
 
-import { ArrowClockwiseIcon, CloudSunIcon, ListIcon } from '@phosphor-icons/react/dist/ssr';
+import {
+  ArrowClockwiseIcon,
+  CloudSunIcon,
+  ListIcon,
+  WifiSlashIcon
+} from '@phosphor-icons/react/dist/ssr';
 
 import { cityFromTimeZone } from '@/lib/datetime';
 import type { SearchResult } from '@/lib/schemas/search';
@@ -10,6 +15,7 @@ import { formatTemperature } from '@/lib/units';
 import { conditionFamily, resolveCondition } from '@/lib/weather-codes';
 import { useGeolocation, type GeoSource } from '@/hooks/useGeolocation';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useOnlineStatus } from '@/hooks/useOnlineStatus';
 import { useWeather } from '@/hooks/useWeather';
 import { usePreferences, type SavedLocation } from '@/store/preferences';
 import { CurrentConditions } from '@/components/CurrentConditions/CurrentConditions';
@@ -50,6 +56,7 @@ export const AppShell = ({ shareEnabled, sharedLocation }: AppShellProps) => {
   const reorderLocations = usePreferences(s => s.reorderLocations);
 
   const geo = useGeolocation();
+  const online = useOnlineStatus();
   const isDesktop = useMediaQuery('(min-width: 1024px)');
 
   const current: DisplayLocation | null = geo.location
@@ -215,6 +222,14 @@ export const AppShell = ({ shareEnabled, sharedLocation }: AppShellProps) => {
       <p className={styles.srStatus} role="status" aria-live="polite">
         {liveStatus}
       </p>
+
+      {!online ? (
+        <div className={styles.offlineBar} role="status">
+          <WifiSlashIcon weight="bold" aria-hidden />
+          You are offline. Weather data may be out of date.
+        </div>
+      ) : null}
+
       <SettingsDialog open={settingsOpen} onClose={() => setSettingsOpen(false)} />
     </>
   );

@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import type { WebApplication, WithContext } from 'schema-dts';
 
 import { SITE_DESCRIPTION, SITE_TITLE } from '@/lib/site';
+import { ServiceWorker } from '@/components/ServiceWorker/ServiceWorker';
 import { SWRProvider } from '@/providers/SWRProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 
@@ -78,6 +79,7 @@ const RootLayout = ({ children }: LayoutProps<'/'>) => {
         <ThemeProvider>
           <SWRProvider>{children}</SWRProvider>
         </ThemeProvider>
+        <ServiceWorker />
       </body>
     </html>
   );
