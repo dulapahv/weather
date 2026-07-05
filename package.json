@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint --cache",
     "lint:fix": "eslint --fix --cache",
-    "format": "prettier --write **/*.{js,mjs,jsx,ts,tsx,json,css,scss}",
+    "format": "prettier --check **/*.{js,mjs,jsx,ts,tsx,json,css,scss}",
+    "format:fix": "prettier --write **/*.{js,mjs,jsx,ts,tsx,json,css,scss}",
     "test": "vitest --watch=false",
     "test:watch": "vitest --watch",
     "preview": "opennextjs-cloudflare build --minify && opennextjs-cloudflare preview",
@@ -19,7 +20,7 @@
   },
   "lint-staged": {
     "**/*.{js,mjs,jsx,ts,tsx,json,css,scss}": [
-      "pnpm format",
+      "pnpm format:fix",
       "pnpm lint:fix"
     ]
   },
