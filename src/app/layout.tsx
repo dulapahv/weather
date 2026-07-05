@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 
+import type { WebApplication, WithContext } from 'schema-dts';
+
 import { SITE_DESCRIPTION, SITE_TITLE } from '@/lib/site';
 import { SWRProvider } from '@/providers/SWRProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
@@ -47,6 +49,17 @@ export const metadata: Metadata = {
   }
 };
 
+const jsonLd: WithContext<WebApplication> = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Weather',
+  description: SITE_DESCRIPTION,
+  url: siteUrl,
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Web',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
+};
+
 export const viewport: Viewport = {
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#f5f7fb' },
@@ -57,6 +70,10 @@ export const viewport: Viewport = {
 const RootLayout = ({ children }: LayoutProps<'/'>) => {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <body>
         <ThemeProvider>
           <SWRProvider>{children}</SWRProvider>
