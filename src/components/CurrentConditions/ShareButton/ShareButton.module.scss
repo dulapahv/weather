@@ -8,7 +8,7 @@
   padding: $space-2 $space-3;
   border: 1px solid var(--color-border);
   border-radius: $radius-full;
-  background: var(--color-surface);
+  background: var(--color-surface-2);
   color: var(--color-muted);
   cursor: pointer;
   font-size: $font-size-sm;
@@ -24,7 +24,7 @@
   }
 
   &:hover {
-    background: var(--color-surface-2);
+    background: var(--color-surface);
     color: var(--color-fg);
   }
 

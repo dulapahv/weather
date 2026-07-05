@@ -1,0 +1,54 @@
+@use 'abstracts' as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+  padding: $space-5;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: $radius-lg;
+}
+
+.skeleton {
+  background: var(--color-surface-2);
+  border-radius: $radius-md;
+  animation: pulse 1.4s $ease-standard infinite;
+
+  @include reduced-motion {
+    animation: none;
+  }
+}
+
+.skelHead {
+  height: 1.4rem;
+  width: 40%;
+}
+
+.skelHero {
+  height: 6rem;
+}
+
+.skelGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-3;
+
+  @include from(tablet) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.skelMetric {
+  height: 4rem;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}

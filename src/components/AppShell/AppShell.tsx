@@ -19,6 +19,7 @@ import type { DisplayLocation } from '@/components/Sidebar/LocationList/Location
 import { SettingsDialog } from '@/components/Sidebar/SettingsDialog/SettingsDialog';
 import { Sidebar } from '@/components/Sidebar/Sidebar';
 import { TenDayForecast } from '@/components/TenDayForecast/TenDayForecast';
+import { WeatherSkeleton } from '@/components/WeatherSkeleton/WeatherSkeleton';
 
 import styles from './AppShell.module.scss';
 
@@ -204,7 +205,7 @@ export const AppShell = ({ shareEnabled, sharedLocation }: AppShellProps) => {
             ) : error && !weather ? (
               <ErrorState message={error.message} onRetry={() => geo.locate()} />
             ) : selected || geo.status === 'locating' ? (
-              <LoadingState />
+              <WeatherSkeleton />
             ) : (
               <EmptyState />
             )}
@@ -216,20 +217,6 @@ export const AppShell = ({ shareEnabled, sharedLocation }: AppShellProps) => {
       </p>
       <SettingsDialog open={settingsOpen} onClose={() => setSettingsOpen(false)} />
     </>
-  );
-};
-
-const LoadingState = () => {
-  return (
-    <div className={styles.card} aria-busy="true" aria-label="Loading weather">
-      <div className={`${styles.skeleton} ${styles.skelHead}`} />
-      <div className={`${styles.skeleton} ${styles.skelHero}`} />
-      <div className={styles.skelGrid}>
-        {[0, 1, 2, 3].map(i => (
-          <div key={i} className={`${styles.skeleton} ${styles.skelMetric}`} />
-        ))}
-      </div>
-    </div>
   );
 };
 

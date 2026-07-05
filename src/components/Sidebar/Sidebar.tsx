@@ -84,7 +84,6 @@ export const Sidebar = ({
               onClick={onToggleCollapse}
               aria-label={mobileOpen ? 'Close locations panel' : 'Collapse panel'}
               title={mobileOpen ? 'Close locations panel' : 'Collapse panel'}
-              aria-expanded
             >
               <CaretLeftIcon weight="bold" />
             </button>
