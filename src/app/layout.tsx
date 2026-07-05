@@ -13,14 +13,40 @@ const inter = Inter({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 
+const TITLE = 'Weather — current conditions & forecast';
+const DESCRIPTION = 'Current conditions with hourly and 10-day forecasts for any city.';
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Weather — current conditions & forecast',
+    default: TITLE,
     template: '%s | Weather'
   },
-  description: 'Current conditions with hourly and 10-day forecasts for any city.',
-  applicationName: 'Weather'
+  description: DESCRIPTION,
+  applicationName: 'Weather',
+  keywords: [
+    'weather',
+    'forecast',
+    'hourly forecast',
+    '10-day forecast',
+    'temperature',
+    'conditions'
+  ],
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    siteName: 'Weather',
+    title: TITLE,
+    description: DESCRIPTION,
+    url: siteUrl,
+    images: [{ url: '/api/og', width: 1200, height: 630 }]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ['/api/og']
+  }
 };
 
 export const viewport: Viewport = {

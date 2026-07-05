@@ -302,3 +302,96 @@
     opacity: 1;
   }
 }
+
+.atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  animation: atmosphere-in 0.4s normal both;
+
+  @include reduced-motion {
+    animation: none;
+  }
+}
+
+.atmosphere[data-condition='clear'] {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, #1f6fd0 90%, var(--color-bg)) 0%,
+    color-mix(in oklab, #3f97de 82%, var(--color-bg)) 52%,
+    color-mix(in oklab, #86c5f0 68%, var(--color-bg)) 100%
+  );
+}
+
+.atmosphere[data-condition='partly-cloudy'] {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, #3f79b4 88%, var(--color-bg)) 0%,
+    color-mix(in oklab, #6296c4 80%, var(--color-bg)) 52%,
+    color-mix(in oklab, #a6c3da 66%, var(--color-bg)) 100%
+  );
+}
+
+.atmosphere[data-condition='overcast'] {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, #4c5764 88%, var(--color-bg)) 0%,
+    color-mix(in oklab, #6b7681 80%, var(--color-bg)) 52%,
+    color-mix(in oklab, #97a1ab 66%, var(--color-bg)) 100%
+  );
+}
+
+.atmosphere[data-condition='fog'] {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, #5d646c 86%, var(--color-bg)) 0%,
+    color-mix(in oklab, #7d848c 78%, var(--color-bg)) 52%,
+    color-mix(in oklab, #a8aeb4 64%, var(--color-bg)) 100%
+  );
+}
+
+.atmosphere[data-condition='drizzle'] {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, #35597f 88%, var(--color-bg)) 0%,
+    color-mix(in oklab, #567ea3 80%, var(--color-bg)) 52%,
+    color-mix(in oklab, #86a0ba 66%, var(--color-bg)) 100%
+  );
+}
+
+.atmosphere[data-condition='rain'] {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, #2b465f 90%, var(--color-bg)) 0%,
+    color-mix(in oklab, #46647e 82%, var(--color-bg)) 52%,
+    color-mix(in oklab, #6f889d 68%, var(--color-bg)) 100%
+  );
+}
+
+.atmosphere[data-condition='snow'] {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, #64798f 86%, var(--color-bg)) 0%,
+    color-mix(in oklab, #8ba1b6 78%, var(--color-bg)) 52%,
+    color-mix(in oklab, #c4d3e1 64%, var(--color-bg)) 100%
+  );
+}
+
+.atmosphere[data-condition='thunder'] {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, #262240 92%, var(--color-bg)) 0%,
+    color-mix(in oklab, #423c62 84%, var(--color-bg)) 52%,
+    color-mix(in oklab, #625a82 70%, var(--color-bg)) 100%
+  );
+}
+
+@keyframes atmosphere-in {
+  from {
+    opacity: 0.75;
+  }
+  to {
+    opacity: 1;
+  }
+}

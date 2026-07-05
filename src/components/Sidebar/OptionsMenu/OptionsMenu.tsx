@@ -60,6 +60,7 @@ export const OptionsMenu = ({ editing, onToggleEdit, onOpenSettings }: Props) =>
         className={styles.trigger}
         aria-haspopup="menu"
         aria-expanded={open}
+        title="List options"
         aria-label="List options"
         onClick={() => setOpen(o => !o)}
       >
