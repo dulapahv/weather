@@ -51,9 +51,6 @@ jobs:
           path: coverage/
           retention-days: 7
 
-      - name: Build worker (OpenNext)
-        run: pnpm exec opennextjs-cloudflare build
-
   # e2e:
   #   runs-on: ubuntu-latest
   #   steps:
@@ -124,7 +121,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build application (minified)
+      - name: Build application
         run: pnpm exec opennextjs-cloudflare build --minify
         # NEXT_PUBLIC_* is inlined at build time, so the canonical/OG URLs must be
         # set here (per env), not as a runtime Worker var.
@@ -167,7 +164,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build application (minified)
+      - name: Build application
         run: pnpm exec opennextjs-cloudflare build --minify
         env:
           NEXT_PUBLIC_SITE_URL: https://weather.dulapahv.dev
