@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
     turbopackFileSystemCacheForBuild: true,
     turbopackServerSideNestedAsyncChunking: true
   },
+  images: {
+    loader: 'custom',
+    loaderFile: './image-loader.ts'
+  },
   logging: {
     browserToTerminal: true
   },
