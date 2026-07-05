@@ -101,6 +101,7 @@ const DialogBody = ({ onClose }: { onClose: () => void }) => {
           type="button"
           className={styles.close}
           onClick={onClose}
+          title="Close settings"
           aria-label="Close settings"
         >
           <XIcon weight="bold" />

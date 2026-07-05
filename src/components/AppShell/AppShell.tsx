@@ -1,17 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ArrowClockwiseIcon, CloudSunIcon, ListIcon } from '@phosphor-icons/react/dist/ssr';
 
 import { cityFromTimeZone } from '@/lib/datetime';
 import type { SearchResult } from '@/lib/schemas/search';
 import { formatTemperature } from '@/lib/units';
-import { resolveCondition } from '@/lib/weather-codes';
+import { conditionFamily, resolveCondition } from '@/lib/weather-codes';
 import { useGeolocation, type GeoSource } from '@/hooks/useGeolocation';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useWeather } from '@/hooks/useWeather';
-import { usePreferences } from '@/store/preferences';
+import { usePreferences, type SavedLocation } from '@/store/preferences';
 import { CurrentConditions } from '@/components/CurrentConditions/CurrentConditions';
 import { HourlyForecast } from '@/components/HourlyForecast/HourlyForecast';
 import { MetricGrid } from '@/components/MetricGrid/MetricGrid';
@@ -32,14 +32,15 @@ const sourceNote = (source: GeoSource): string => {
 
 interface AppShellProps {
   shareEnabled: boolean;
+  sharedLocation?: SavedLocation | null;
 }
 
-export const AppShell = ({ shareEnabled }: AppShellProps) => {
+export const AppShell = ({ shareEnabled, sharedLocation }: AppShellProps) => {
   const [collapsed, setCollapsed] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [selectedId, setSelectedId] = useState<string>(CURRENT_ID);
+  const [selectedId, setSelectedId] = useState<string>(sharedLocation?.id ?? CURRENT_ID);
 
   const units = usePreferences(s => s.units);
   const saved = usePreferences(s => s.locations);
@@ -83,6 +84,17 @@ export const AppShell = ({ shareEnabled }: AppShellProps) => {
     setMenuOpen(false);
   };
 
+  useEffect(() => {
+    if (!sharedLocation) return;
+    addLocation(sharedLocation);
+
+    const url = new URL(window.location.href);
+    url.searchParams.delete('lat');
+    url.searchParams.delete('lon');
+    url.searchParams.delete('name');
+    window.history.replaceState(window.history.state, '', url);
+  }, [sharedLocation, addLocation]);
+
   const handleSearchSelect = (r: SearchResult) => {
     addLocation({
       id: r.id,
@@ -106,6 +118,8 @@ export const AppShell = ({ shareEnabled }: AppShellProps) => {
 
   const place = selected?.label || (weather ? cityFromTimeZone(weather.location.timezone) : '');
 
+  const conditionTint = weather ? conditionFamily(weather.current.weatherCode) : null;
+
   const liveStatus =
     weather && selected
       ? `Weather for ${place}: ${formatTemperature(weather.current.temperature)}, ${resolveCondition(weather.current.weatherCode).description}`
@@ -117,6 +131,14 @@ export const AppShell = ({ shareEnabled }: AppShellProps) => {
 
   return (
     <>
+      {conditionTint ? (
+        <div
+          key={conditionTint}
+          className={styles.atmosphere}
+          data-condition={conditionTint}
+          aria-hidden
+        />
+      ) : null}
       <a href="#main" className={styles.skipLink}>
         Skip to main content
       </a>
