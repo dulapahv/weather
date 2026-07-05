@@ -2,7 +2,7 @@ import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 import { jsonResponse } from '@/lib/api/http';
 
-// When no IP geolocation is available (e.g. local dev), fall back to this.
+// When no IP geolocation is available, fall back to this.
 const DEFAULT_LOCATION = {
   latitude: 13.7563,
   longitude: 100.5018,

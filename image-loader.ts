@@ -4,7 +4,7 @@ const normalizeSrc = (src: string) => {
   return src.startsWith('/') ? src.slice(1) : src;
 };
 
-export default function cloudflareLoader({ src, width, quality }: ImageLoaderProps) {
+const cloudflareLoader = ({ src, width, quality }: ImageLoaderProps) => {
   if (src.startsWith('http://') || src.startsWith('https://')) {
     return src;
   }
@@ -16,4 +16,6 @@ export default function cloudflareLoader({ src, width, quality }: ImageLoaderPro
     return `${src}?${params.join('&')}`;
   }
   return `/cdn-cgi/image/${params.join(',')}/${normalizeSrc(src)}`;
-}
+};
+
+export default cloudflareLoader;
