@@ -4,6 +4,13 @@ import { expect, test } from '@playwright/test';
 import { geoResponse, reverseResponse, searchResponse, weatherResponse } from './fixtures';
 
 test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register = () =>
+        Promise.reject(new Error('service worker disabled for tests'));
+    }
+  });
+
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.route('**/api/geo', route => route.fulfill({ json: geoResponse }));
   await page.route('**/api/weather**', route => route.fulfill({ json: weatherResponse }));
