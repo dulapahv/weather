@@ -70,10 +70,6 @@ export const viewport: Viewport = {
 const RootLayout = ({ children }: LayoutProps<'/'>) => {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
       <body>
         <script
           type="application/ld+json"
