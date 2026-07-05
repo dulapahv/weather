@@ -2,6 +2,7 @@ import { ImageResponse } from 'next/og';
 
 import { fetchForecast } from '@/lib/api/provider';
 import { toWeather } from '@/lib/api/transform';
+import { SITE_DESCRIPTION, SITE_TITLE } from '@/lib/site';
 import { formatTemperature } from '@/lib/units';
 import {
   conditionFamily,
@@ -11,8 +12,6 @@ import {
   type ConditionFamily
 } from '@/lib/weather-codes';
 
-const DEFAULT = { lat: 13.7563, lon: 100.5018, name: 'Bangkok' };
-
 const loadGoogleFont = async (font: string, weight: number, text: string): Promise<ArrayBuffer> => {
   const url = `https://fonts.googleapis.com/css2?family=${font}:wght@${weight}&text=${encodeURIComponent(text)}`;
   const css = await (await fetch(url)).text();
@@ -21,15 +20,83 @@ const loadGoogleFont = async (font: string, weight: number, text: string): Promi
   return (await fetch(resource[1])).arrayBuffer();
 };
 
+const loadFonts = async (text: string) => {
+  const [bold, regular] = await Promise.all([
+    loadGoogleFont('Geist', 600, text),
+    loadGoogleFont('Geist', 400, text)
+  ]);
+  return [
+    { name: 'Geist', data: bold, weight: 600, style: 'normal' },
+    { name: 'Geist', data: regular, weight: 400, style: 'normal' }
+  ] as const;
+};
+
+const brandCard = async (origin: string) => {
+  const fonts = await loadFonts(`${SITE_TITLE}${SITE_DESCRIPTION}`);
+
+  return new ImageResponse(
+    <div
+      style={{
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        padding: 72,
+        background: ogGradient('partly-cloudy', true),
+        color: '#ffffff',
+        fontFamily: 'Geist'
+      }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={`${origin}${iconSrc('partly-cloudy')}`} width={200} height={200} alt="" />
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 72,
+            fontWeight: 600,
+            lineHeight: 1.1,
+            maxWidth: 980
+          }}
+        >
+          {SITE_TITLE}
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 34,
+            color: 'rgba(255,255,255,0.85)',
+            marginTop: 20
+          }}
+        >
+          {SITE_DESCRIPTION}
+        </div>
+      </div>
+    </div>,
+    {
+      width: 1200,
+      height: 630,
+      fonts: [...fonts],
+      headers: {
+        'cache-control': 'public, max-age=86400, s-maxage=86400'
+      }
+    }
+  );
+};
+
 export const GET = async (request: Request) => {
   // The icon must be fetched from a URL the Worker can actually reach, not the NEXT_PUBLIC_SITE_URL.
   const { origin, searchParams } = new URL(request.url);
-  const lat = Number(searchParams.get('lat'));
-  const lon = Number(searchParams.get('lon'));
-  const hasCoords = Number.isFinite(lat) && Number.isFinite(lon);
-  const latitude = hasCoords ? lat : DEFAULT.lat;
-  const longitude = hasCoords ? lon : DEFAULT.lon;
-  const name = searchParams.get('name')?.slice(0, 60) || DEFAULT.name;
+  const latRaw = searchParams.get('lat');
+  const lonRaw = searchParams.get('lon');
+  const latitude = latRaw ? Number(latRaw) : NaN;
+  const longitude = lonRaw ? Number(lonRaw) : NaN;
+  const name = searchParams.get('name')?.slice(0, 60);
+
+  if (!name || !Number.isFinite(latitude) || !Number.isFinite(longitude)) {
+    return brandCard(origin);
+  }
 
   let temp = '—';
   let feels = '';
@@ -58,11 +125,8 @@ export const GET = async (request: Request) => {
     // Render a graceful card even if the upstream call fails.
   }
 
-  const text = `WEATHER${name}${condition}${temp}Feels like ${feels}Fast, accessible forecasts`;
-  const [bold, regular] = await Promise.all([
-    loadGoogleFont('Geist', 600, text),
-    loadGoogleFont('Geist', 400, text)
-  ]);
+  const text = `${name}${condition}${temp}Feels like ${feels}`;
+  const fonts = await loadFonts(text);
 
   const background = ogGradient(family, isDay);
 
@@ -119,10 +183,7 @@ export const GET = async (request: Request) => {
     {
       width: 1200,
       height: 630,
-      fonts: [
-        { name: 'Geist', data: bold, weight: 600, style: 'normal' },
-        { name: 'Geist', data: regular, weight: 400, style: 'normal' }
-      ],
+      fonts: [...fonts],
       headers: {
         'cache-control': 'public, max-age=600, s-maxage=600'
       }

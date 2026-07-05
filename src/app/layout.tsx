@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 
+import { SITE_DESCRIPTION, SITE_TITLE } from '@/lib/site';
 import { SWRProvider } from '@/providers/SWRProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 
@@ -13,16 +14,13 @@ const inter = Inter({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 
-const TITLE = 'Weather — current conditions & forecast';
-const DESCRIPTION = 'Current conditions with hourly and 10-day forecasts for any city.';
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: TITLE,
+    default: SITE_TITLE,
     template: '%s | Weather'
   },
-  description: DESCRIPTION,
+  description: SITE_DESCRIPTION,
   applicationName: 'Weather',
   keywords: [
     'weather',
@@ -36,15 +34,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: 'Weather',
-    title: TITLE,
-    description: DESCRIPTION,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     url: siteUrl,
     images: [{ url: '/api/og', width: 1200, height: 630 }]
   },
   twitter: {
     card: 'summary_large_image',
-    title: TITLE,
-    description: DESCRIPTION,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     images: ['/api/og']
   }
 };

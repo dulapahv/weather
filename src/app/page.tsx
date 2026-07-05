@@ -14,7 +14,8 @@ export const generateMetadata = async ({
   const { lat, lon, name } = await searchParams;
   if (!lat || !lon || !name) return {};
 
-  const query = new URLSearchParams({ lat, lon, name }).toString();
+  const v = String(Math.floor(Date.now() / 600_000));
+  const query = new URLSearchParams({ lat, lon, name, v }).toString();
   const ogUrl = `/api/og?${query}`;
 
   return {
