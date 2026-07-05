@@ -31,7 +31,7 @@ export default defineConfig({
       enabled: true,
       provider: 'v8',
       reporter: ['text', 'lcov', 'cobertura', 'html'],
-      exclude: [...coverageConfigDefaults.exclude, 'components/AppShell/**'],
+      exclude: [...coverageConfigDefaults.exclude, 'src/components/AppShell/**'],
       thresholds: {
         lines: 90
       }

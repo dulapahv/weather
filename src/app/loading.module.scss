@@ -1,0 +1,11 @@
+@use 'abstracts' as *;
+
+.wrap {
+  max-width: 56rem;
+  margin-inline: auto;
+  padding: $space-5;
+
+  @include from(tablet) {
+    padding: $space-6;
+  }
+}

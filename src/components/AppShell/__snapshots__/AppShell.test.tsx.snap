@@ -88,7 +88,6 @@ exports[`AppShell (home page) > should match the snapshot for the empty state 1`
           </button>
         </div>
         <button
-          aria-expanded="true"
           aria-label="Collapse panel"
           class="collapseBtn"
           title="Collapse panel"
@@ -307,7 +306,6 @@ exports[`AppShell (home page) > should match the snapshot for the loaded home pa
           </button>
         </div>
         <button
-          aria-expanded="true"
           aria-label="Collapse panel"
           class="collapseBtn"
           title="Collapse panel"
@@ -903,7 +901,6 @@ exports[`AppShell (home page) > should match the snapshot while locating (loadin
           </button>
         </div>
         <button
-          aria-expanded="true"
           aria-label="Collapse panel"
           class="collapseBtn"
           title="Collapse panel"
