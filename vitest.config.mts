@@ -22,7 +22,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: ['./src/tests/setup.ts'],
-    exclude: [...configDefaults.exclude],
+    exclude: [...configDefaults.exclude, 'src/e2e/**'],
     css: {
       include: [/.+/],
       modules: { classNameStrategy: 'non-scoped' }
