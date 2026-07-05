@@ -75,6 +75,10 @@ const RootLayout = ({ children }: LayoutProps<'/'>) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <ThemeProvider>
           <SWRProvider>{children}</SWRProvider>
         </ThemeProvider>
