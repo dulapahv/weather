@@ -73,6 +73,22 @@ describe('SearchBar', () => {
     scrollSpy.mockRestore();
   });
 
+  it('should highlight a hovered option without scrolling the list', async () => {
+    const scrollSpy = vi
+      .spyOn(HTMLElement.prototype, 'scrollIntoView')
+      .mockImplementation(() => {});
+    mockSearch([result('1', 'London'), result('2', 'Longview')]);
+    render(<SearchBar onSelect={vi.fn()} />);
+
+    await userEvent.click(screen.getByRole('combobox'));
+    const options = screen.getAllByRole('option');
+    await userEvent.hover(options[1]);
+
+    expect(options[1]).toHaveAttribute('aria-selected', 'true');
+    expect(scrollSpy).not.toHaveBeenCalled();
+    scrollSpy.mockRestore();
+  });
+
   it('should show a no-matches note when an active query returns nothing', async () => {
     useSearchMock.mockReturnValue({
       results: [],

@@ -1,6 +1,6 @@
 'use client';
 
-import { KeyboardEvent, useEffect, useId, useRef, useState } from 'react';
+import { KeyboardEvent, useId, useRef, useState } from 'react';
 
 import { MagnifyingGlassIcon } from '@phosphor-icons/react/dist/ssr';
 
@@ -28,11 +28,10 @@ export const SearchBar = ({ onSelect }: Props) => {
   const showList = open && isActive;
   const showOptions = showList && results.length > 0;
 
-  useEffect(() => {
-    if (active < 0) return;
-    const option = listRef.current?.children[active];
-    option?.scrollIntoView({ block: 'nearest' });
-  }, [active]);
+  const moveActive = (next: number) => {
+    setActive(next);
+    listRef.current?.children[next]?.scrollIntoView({ block: 'nearest' });
+  };
 
   const choose = (result: SearchResult) => {
     onSelect(result);
@@ -45,10 +44,10 @@ export const SearchBar = ({ onSelect }: Props) => {
     if (!showOptions) return;
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      setActive(i => Math.min(i + 1, results.length - 1));
+      moveActive(Math.min(active + 1, results.length - 1));
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      setActive(i => Math.max(i - 1, 0));
+      moveActive(Math.max(active - 1, 0));
     } else if (e.key === 'Enter' && active >= 0 && results[active]) {
       e.preventDefault();
       choose(results[active]);
@@ -98,7 +97,9 @@ export const SearchBar = ({ onSelect }: Props) => {
                 e.preventDefault();
                 choose(r);
               }}
-              onMouseEnter={() => setActive(i)}
+              onMouseMove={() => {
+                if (i !== active) setActive(i);
+              }}
             >
               <span className={styles.optName}>{r.name}</span>
               <span className={styles.optRegion}>
