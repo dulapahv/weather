@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 
 import type { WebApplication, WithContext } from 'schema-dts';
 
-import { SITE_DESCRIPTION, SITE_TITLE } from '@/lib/site';
+import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from '@/lib/site';
 import { ServiceWorker } from '@/components/ServiceWorker/ServiceWorker';
 import { SWRProvider } from '@/providers/SWRProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
@@ -15,10 +15,8 @@ const inter = Inter({
   weight: 'variable'
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: SITE_TITLE,
     template: '%s | Weather'
@@ -39,7 +37,7 @@ export const metadata: Metadata = {
     siteName: 'Weather',
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    url: siteUrl,
+    url: SITE_URL,
     images: [{ url: '/api/og', width: 1200, height: 630 }]
   },
   twitter: {
@@ -55,7 +53,7 @@ const jsonLd: WithContext<WebApplication> = {
   '@type': 'WebApplication',
   name: 'Weather',
   description: SITE_DESCRIPTION,
-  url: siteUrl,
+  url: SITE_URL,
   applicationCategory: 'UtilitiesApplication',
   operatingSystem: 'Web',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
