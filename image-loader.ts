@@ -8,14 +8,11 @@ const cloudflareLoader = ({ src, width, quality }: ImageLoaderProps) => {
   if (src.startsWith('http://') || src.startsWith('https://')) {
     return src;
   }
-  if (!process.env.NEXT_PUBLIC_SITE_URL) {
-    return src;
-  }
   const params = [`width=${width}`];
   if (quality) {
     params.push(`quality=${quality}`);
   }
-  if (process.env.NODE_ENV === 'development') {
+  if (!process.env.NEXT_PUBLIC_SITE_URL) {
     return `${src}?${params.join('&')}`;
   }
   return `/cdn-cgi/image/${params.join(',')}/${normalizeSrc(src)}`;
