@@ -66,7 +66,9 @@ export const SettingsDialog = ({ open, onClose }: Props) => {
       ref={ref}
       className={styles.dialog}
       onClose={onClose}
-      onCancel={onClose}
+      onCancel={e => {
+        if (e.target === e.currentTarget) onClose();
+      }}
       onClick={e => {
         if (e.target === e.currentTarget) onClose();
       }}

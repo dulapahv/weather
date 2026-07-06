@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
@@ -52,5 +52,19 @@ describe('SettingsDialog', () => {
     const { onClose } = open();
     await userEvent.click(screen.getByRole('button', { name: /close settings/i }));
     expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('should close when the dialog itself is cancelled (Esc)', () => {
+    const { onClose, container } = open();
+    const dialog = container.querySelector('dialog');
+    fireEvent(dialog!, new Event('cancel'));
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('should stay open when a dismissed file picker bubbles a cancel event', () => {
+    const { onClose } = open();
+    const input = screen.getByLabelText(/import/i);
+    fireEvent(input, new Event('cancel', { bubbles: true }));
+    expect(onClose).not.toHaveBeenCalled();
   });
 });
