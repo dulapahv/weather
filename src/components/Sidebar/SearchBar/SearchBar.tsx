@@ -28,12 +28,12 @@ export const SearchBar = ({ onSelect }: Props) => {
   const showList = open && isActive;
   const showOptions = showList && results.length > 0;
 
-  const move = (next: number) => {
+  const move = (delta: number) => {
     const n = results.length;
     if (n === 0) return;
-    const wrapped = ((next % n) + n) % n;
-    setActive(wrapped);
-    listRef.current?.children[wrapped]?.scrollIntoView({ block: 'nearest' });
+    const next = active < 0 ? (delta > 0 ? 0 : n - 1) : (active + delta + n) % n;
+    setActive(next);
+    listRef.current?.children[next]?.scrollIntoView({ block: 'nearest' });
   };
 
   const choose = (result: SearchResult) => {
@@ -48,13 +48,13 @@ export const SearchBar = ({ onSelect }: Props) => {
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      move(active + 1);
+      move(1);
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      move(active - 1);
+      move(-1);
     } else if (e.key === 'Tab') {
       e.preventDefault();
-      move(active + (e.shiftKey ? -1 : 1));
+      move(e.shiftKey ? -1 : 1);
     } else if (e.key === 'Enter' && active >= 0 && results[active]) {
       e.preventDefault();
       choose(results[active]);
