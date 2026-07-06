@@ -157,7 +157,7 @@ jobs:
 
   deploy-dev:
     if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
-    needs: [verify, e2e]
+    needs: [verify, e2e, lighthouse]
     runs-on: ubuntu-latest
     environment: dev
     steps:
@@ -199,7 +199,7 @@ jobs:
 
   deploy-prod:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [verify, e2e]
+    needs: [verify, e2e, lighthouse]
     runs-on: ubuntu-latest
     environment: production
     steps:
