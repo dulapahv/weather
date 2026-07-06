@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 
 import { ArrowClockwiseIcon } from '@phosphor-icons/react/dist/ssr';
+import * as Sentry from '@sentry/nextjs';
 
 import styles from './error.module.scss';
 
@@ -13,6 +14,7 @@ interface ErrorPageProps {
 
 const ErrorPage = ({ error, reset }: ErrorPageProps) => {
   useEffect(() => {
+    Sentry.captureException(error);
     console.error('Application error:', error);
   }, [error]);
 
