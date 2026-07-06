@@ -14,10 +14,15 @@ Search any city or postcode, save, share, and reorder favorite locations, and ge
 - [Getting started](#getting-started)
 - [Features](#features)
 - [Tech stack](#tech-stack)
-  - [Scripts](#scripts)
+- [Scripts](#scripts)
 - [Architecture](#architecture)
   - [Project structure](#project-structure)
 - [API](#api)
+  - [`GET /api/weather`](#get-apiweather)
+  - [`GET /api/search`](#get-apisearch)
+  - [`GET /api/geo`](#get-apigeo)
+  - [`GET /api/reverse`](#get-apireverse)
+  - [`GET /api/og`](#get-apiog)
 - [Key decisions \& trade-offs](#key-decisions--trade-offs)
 - [Testing](#testing)
 - [CI/CD](#cicd)
@@ -53,7 +58,7 @@ Open [http://localhost:3000](http://localhost:3000). No API keys or environment 
 
 ## Features
 
-- **Search** - city or postcode autocomplete (Open-Meteo geocoding, with Nominatim fallback for postcodes)
+- **Search** - city or postcode autocomplete ([Open-Meteo](https://open-meteo.com/) geocoding, with [Nominatim](https://nominatim.org/) fallback for postcodes)
 - **Current location** - GPS with graceful fallback to IP-based approximation, clearly labeled
 - **Saved locations** - add, remove, and reorder (keyboard-accessible drag and drop), with the current location pinned first
 - **Forecasts** - current conditions, hourly, 10 days, plus feels-like, wind, humidity, visibility, pressure, UV index, sunrise/sunset, and precipitation
@@ -61,7 +66,7 @@ Open [http://localhost:3000](http://localhost:3000). No API keys or environment 
 - **Share** - deep-linkable location URLs with dynamically generated Open Graph images
 - **Offline and installable** - a PWA whose service worker serves the last-fetched weather when the network drops, with a clear offline indicator
 - **Themes** - light and dark, no flash on load, respects system preference and `prefers-reduced-motion`
-- **Feature flags** - runtime flags via Cloudflare, read server-side
+- **Feature flags** - runtime flags via [Cloudflare Flagship](https://developers.cloudflare.com/flagship/), read server-side
 
 ## Tech stack
 
@@ -75,12 +80,14 @@ Open [http://localhost:3000](http://localhost:3000). No API keys or environment 
 | Drag and drop | [@dnd-kit](https://dndkit.com/) with pointer and keyboard sensors |
 | Validation | Zod at every BFF boundary (inputs and upstream responses) |
 | Weather data | [Open-Meteo](https://open-meteo.com/) - keyless, proxied through a BFF |
-| Feature flags | [Cloudflare (Flagship)](https://developers.cloudflare.com/flagship/) binding, read server-side |
+| Geocoding | [Open-Meteo](https://open-meteo.com/en/docs/geocoding-api) for names, [Nominatim](https://nominatim.org/) for postcodes and reverse lookups |
+| Feature flags | [Cloudflare Flagship](https://developers.cloudflare.com/flagship/) binding, read server-side |
+| Images | [Cloudflare Image Transformations](https://developers.cloudflare.com/images/transform-images/) via a custom `next/image` loader |
 | PWA / offline | Web manifest + a small hand-rolled service worker |
 | Deployment | Cloudflare Workers via [OpenNext](https://opennext.js.org/cloudflare) |
-| Testing | Vitest + Testing Library + MSW · Playwright + axe-core |
+| Testing | Vitest + Testing Library + MSW, Playwright + axe-core |
 
-### Scripts
+## Scripts
 
 | Command | What it does |
 | --- | --- |
@@ -95,9 +102,10 @@ Open [http://localhost:3000](http://localhost:3000). No API keys or environment 
 | `pnpm deploy:dev` / `pnpm deploy:prod` | Build and deploy to Cloudflare<sup>2</sup> |
 | `pnpm cf-typegen` | Regenerate `CloudflareEnv` types from `wrangler.jsonc` |
 
-<sup>1</sup> First run: `pnpm exec playwright install chromium`. The E2E suite builds and serves the app itself (port 3100) and mocks all API routes, so it needs no network access to upstream providers.
+<sup>1</sup>First run: `pnpm exec playwright install chromium`. The E2E suite builds and serves the a
+pp itself (port 3100) and mocks all API routes, so it needs no network access to upstream providers.
 
-<sup>2</sup> The OpenNext build runs on Linux/macOS (use WSL on Windows). Deploys normally happen through CI, not from a local machine.
+<sup>2</sup>The OpenNext build runs on Linux/macOS (use WSL on Windows). Deploys normally happen through CI, not from a local machine.
 
 ## Architecture
 
@@ -142,7 +150,7 @@ All data flows through the BFF endpoints. Request and response shapes are define
 | `GET /api/reverse` | Reverse geocode coordinates to a place name |
 | `GET /api/og` | Dynamic Open Graph image for shared links |
 
-**`GET /api/weather`**
+### `GET /api/weather`
 
 Request schema (query string, validated by `weatherQuerySchema` in `src/lib/schemas/weather.ts`):
 
@@ -229,7 +237,7 @@ Sample response, with `hourly` and `daily` trimmed to one entry each:
 
 All times are the location's local wall clock and are rendered as-is, never converted to the viewer's timezone.
 
-**`GET /api/search`**
+### `GET /api/search`
 
 Request schema (query string, validated by `searchQuerySchema` in `src/lib/schemas/search.ts`):
 
@@ -272,7 +280,7 @@ Sample response:
 }
 ```
 
-**`GET /api/geo`**
+### `GET /api/geo`
 
 No parameters. Resolves an approximate location from Cloudflare's edge IP geolocation, falling back to a default city when that is unavailable.
 
@@ -294,7 +302,7 @@ Sample response:
 { "latitude": 51.5074, "longitude": -0.1278, "label": "London", "source": "ip" }
 ```
 
-**`GET /api/reverse`**
+### `GET /api/reverse`
 
 Request schema (query string, validated by `reverseQuerySchema` in `src/lib/schemas/reverse.ts`):
 
@@ -315,7 +323,7 @@ Response schema is `{ label: string }` (`reverseResponseSchema` in `src/lib/sche
 { "label": "London" }
 ```
 
-**`GET /api/og`**
+### `GET /api/og`
 
 Returns a 1200x630 PNG image rather than JSON. Given `lat`, `lon`, and `name`, it fetches that location's current conditions server-side and renders a live weather card. Without them it falls back to the default brand card. `generateMetadata` in `src/app/page.tsx` points shared links here for rich previews.
 
@@ -343,7 +351,10 @@ curl "https://weather.dulapahv.dev/api/og?lat=51.5074&lon=-0.1278&name=London" -
 - **Open-Meteo as the weather provider:** It's free, keyless, and covers everything from current conditions to multi-day forecasts.
 *The trade-off:* Its geocoder only handles place names. Instead of swapping providers entirely, `/api/search` falls back to Nominatim for postcodes, introducing a second dependency.
 
-- **Deploying to production from day one:** The CI pipeline and Cloudflare deployment were built before any UI. This surfaced platform constraints early (e.g., OpenNext builds on Windows).
+- **Cloudflare Workers over Vercel:** Vercel is the default home for Next.js, but Cloudflare Workers offers a significantly more generous free tier for a public demo, most notably, zero bandwidth caps compared to Vercel Hobby's 100 GB monthly limit. This ensures a sudden traffic spike cannot take the app down or force an unexpected plan upgrade. Cloudflare also provides excellent global TTFB by executing code at the nearest of its 300+ edge locations. Operating directly on Workers grants native platform bindings configured entirely in `wrangler.jsonc` without external SDKs or API keys: Workers KV powers the rate limiter, Flagship handles runtime feature flags, and the edge `cf` object provides instant IP geolocation for `/api/geo`. For media optimization, a custom image loader (`image-loader.ts`) rewrites `next/image` URLs to utilize Cloudflare Image Transformations (`/cdn-cgi/image/...`), shifting resizing and format conversion to the edge automatically.
+*The trade-off:* Vercel provides a zero-config deployment experience with native, first-class Next.js support. Deploying to Workers relies on the community-driven OpenNext adapter, which adds an extra build step, can occasionally lag behind major Next.js releases, and introduces environment constraints such as lack of native Windows build support.
+
+- **Deploying to production from day one:** The CI pipeline and Cloudflare deployment were built before any UI. This surfaced platform constraints early (e.g., OpenNext not building on Windows).
 *The trade-off:* Higher initial setup time, but it eliminates end-of-project deployment anxiety.
 
 ## Testing
