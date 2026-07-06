@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 
 import { XIcon } from '@phosphor-icons/react/dist/ssr';
 import { useTheme } from 'next-themes';
@@ -86,7 +86,7 @@ const DialogBody = ({ onClose }: { onClose: () => void }) => {
   const resetDefaults = usePreferences(s => s.resetDefaults);
   const { theme, setTheme } = useTheme();
 
-  const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImport = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     e.target.value = '';
     if (!file) return;
