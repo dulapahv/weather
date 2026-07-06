@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
 
+import { reverseResponseSchema } from '@/lib/schemas/reverse';
 import { server } from '@/tests/msw';
 
 import { GET } from './route';
@@ -18,7 +19,7 @@ describe('GET /api/reverse', () => {
 
     expect(res.status).toBe(200);
     expect(res.headers.get('cache-control')).toContain('s-maxage=86400');
-    const body = await res.json();
+    const body = reverseResponseSchema.parse(await res.json());
     expect(body.label).toBe('London');
   });
 

@@ -3,6 +3,7 @@ import { NextRequest } from 'next/server';
 import { http, HttpResponse } from 'msw';
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
 
+import { weatherResponseSchema } from '@/lib/schemas/weather';
 import { server } from '@/tests/msw';
 
 import { GET } from './route';
@@ -19,7 +20,7 @@ describe('GET /api/weather', () => {
 
     expect(res.status).toBe(200);
     expect(res.headers.get('cache-control')).toContain('s-maxage=300');
-    const body = await res.json();
+    const body = weatherResponseSchema.parse(await res.json());
     expect(body.current.isDay).toBe(false);
     expect(body.daily).toHaveLength(1);
   });

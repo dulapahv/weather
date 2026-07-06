@@ -3,6 +3,7 @@ import { NextRequest } from 'next/server';
 import { http, HttpResponse } from 'msw';
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
 
+import { searchResponseSchema } from '@/lib/schemas/search';
 import { server } from '@/tests/msw';
 
 import { GET } from './route';
@@ -19,7 +20,7 @@ describe('GET /api/search', () => {
 
     expect(res.status).toBe(200);
     expect(res.headers.get('cache-control')).toContain('s-maxage=86400');
-    const body = await res.json();
+    const body = searchResponseSchema.parse(await res.json());
     expect(body.results[0].label).toBe('London, England, United Kingdom');
   });
 
@@ -38,7 +39,7 @@ describe('GET /api/search', () => {
 
     const res = await GET(request('q=SW1A%201AA'));
     expect(res.status).toBe(200);
-    const body = await res.json();
+    const body = searchResponseSchema.parse(await res.json());
     expect(body.results[0].name).toBe('London');
     expect(body.results[0].label).toContain('SW1A 1AA');
   });

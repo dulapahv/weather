@@ -41,13 +41,11 @@ export const DEFAULT_UNITS: Units = {
 interface PreferencesState {
   units: Units;
   locations: SavedLocation[];
-  hasHydrated: boolean;
   setUnit: <K extends keyof Units>(key: K, value: Units[K]) => void;
   addLocation: (location: SavedLocation) => void;
   removeLocation: (id: string) => void;
   reorderLocations: (from: number, to: number) => void;
   resetDefaults: () => void;
-  setHasHydrated: (value: boolean) => void;
 }
 
 // A no-op storage for SSR, where localStorage is unavailable.
@@ -62,7 +60,6 @@ export const usePreferences = create<PreferencesState>()(
     set => ({
       units: DEFAULT_UNITS,
       locations: [],
-      hasHydrated: false,
       setUnit: (key, value) => set(s => ({ units: { ...s.units, [key]: value } })),
       addLocation: location =>
         set(s =>
@@ -78,8 +75,7 @@ export const usePreferences = create<PreferencesState>()(
           if (moved) next.splice(to, 0, moved);
           return { locations: next };
         }),
-      resetDefaults: () => set({ units: DEFAULT_UNITS, locations: [] }),
-      setHasHydrated: value => set({ hasHydrated: value })
+      resetDefaults: () => set({ units: DEFAULT_UNITS, locations: [] })
     }),
     {
       name: 'weather-prefs',
@@ -97,8 +93,7 @@ export const usePreferences = create<PreferencesState>()(
           ...p,
           units: { ...DEFAULT_UNITS, ...(p.units ?? {}) }
         };
-      },
-      onRehydrateStorage: () => state => state?.setHasHydrated(true)
+      }
     }
   )
 );
