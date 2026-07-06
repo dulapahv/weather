@@ -73,15 +73,15 @@ export const LocationList = ({
     const current = buttons.indexOf(document.activeElement as HTMLButtonElement);
     if (current === -1) return;
     e.preventDefault();
-    const last = buttons.length - 1;
+    const count = buttons.length;
     const next =
       e.key === 'ArrowDown'
-        ? Math.min(current + 1, last)
+        ? (current + 1) % count
         : e.key === 'ArrowUp'
-          ? Math.max(current - 1, 0)
+          ? (current - 1 + count) % count
           : e.key === 'Home'
             ? 0
-            : last;
+            : count - 1;
     buttons[next]?.focus();
   };
 
