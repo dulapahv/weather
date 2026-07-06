@@ -47,6 +47,30 @@ export const formatNumber = (value: number, fractionDigits = 0): string => {
   }).format(value);
 };
 
+const COMPASS_POINTS = [
+  'N',
+  'NNE',
+  'NE',
+  'ENE',
+  'E',
+  'ESE',
+  'SE',
+  'SSE',
+  'S',
+  'SSW',
+  'SW',
+  'WSW',
+  'W',
+  'WNW',
+  'NW',
+  'NNW'
+] as const;
+
+export const compassPoint = (degrees: number): string => {
+  const normalized = ((degrees % 360) + 360) % 360;
+  return COMPASS_POINTS[Math.round(normalized / 22.5) % 16] ?? 'N';
+};
+
 export const formatWind = (value: number, unit: WindSpeedUnit): string => {
   return `${formatNumber(value)} ${WIND_LABEL[unit]}`;
 };

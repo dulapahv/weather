@@ -13,6 +13,7 @@ import {
 import { formatTime } from '@/lib/datetime';
 import type { WeatherResponse } from '@/lib/schemas/weather';
 import {
+  compassPoint,
   formatDistance,
   formatPercent,
   formatPressure,
@@ -36,7 +37,7 @@ export const MetricGrid = ({ weather, units }: Props) => {
   const metrics: Array<{ label: string; value: string; icon: Icon }> = [
     {
       label: 'Wind',
-      value: formatWind(current.windSpeed, units.windSpeed),
+      value: `${formatWind(current.windSpeed, units.windSpeed)} ${compassPoint(current.windDirection)}`,
       icon: WindIcon
     },
     { label: 'Humidity', value: formatPercent(current.humidity), icon: DropIcon },
