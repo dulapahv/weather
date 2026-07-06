@@ -115,6 +115,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -151,6 +153,7 @@ jobs:
           name: lighthouse-report
           path: .lighthouseci/
           retention-days: 7
+          include-hidden-files: true
 
   deploy-dev:
     if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
