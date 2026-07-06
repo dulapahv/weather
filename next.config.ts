@@ -3,6 +3,7 @@ import type { NextConfig } from 'next';
 import path from 'node:path';
 
 import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare';
+import { withSentryConfig } from '@sentry/nextjs';
 
 const nextConfig: NextConfig = {
   experimental: {
@@ -28,4 +29,11 @@ const nextConfig: NextConfig = {
 
 initOpenNextCloudflareForDev();
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  silent: !process.env.CI,
+  widenClientFileUpload: true,
+  tunnelRoute: '/monitoring'
+});
