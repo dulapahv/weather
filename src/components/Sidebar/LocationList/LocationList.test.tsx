@@ -90,6 +90,19 @@ describe('LocationList', () => {
     expect(document.activeElement).toBe(buttons[0]);
   });
 
+  it('should wrap focus around both ends with the arrow keys', async () => {
+    renderList();
+    const buttons = screen.getAllByRole('button');
+    const last = buttons.length - 1;
+
+    buttons[0].focus();
+    await userEvent.keyboard('{ArrowUp}');
+    expect(document.activeElement).toBe(buttons[last]);
+
+    await userEvent.keyboard('{ArrowDown}');
+    expect(document.activeElement).toBe(buttons[0]);
+  });
+
   it("should show temperature and conditions once a row's weather loads", () => {
     useWeatherMock.mockReturnValue({
       weather: toWeather(forecastFixture, { latitude: 48.8, longitude: 2.3 }),

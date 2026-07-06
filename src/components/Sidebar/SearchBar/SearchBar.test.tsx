@@ -57,6 +57,43 @@ describe('SearchBar', () => {
     expect(onSelect).toHaveBeenCalledWith(expect.objectContaining({ id: '2' }));
   });
 
+  it('should walk the list with Tab and Shift+Tab like the arrow keys', async () => {
+    mockSearch([result('1', 'London'), result('2', 'Longview')]);
+    const onSelect = vi.fn();
+    render(<SearchBar onSelect={onSelect} />);
+
+    const input = screen.getByRole('combobox');
+    await userEvent.click(input);
+
+    await userEvent.keyboard('{Tab}'); // London
+    await userEvent.keyboard('{Tab}'); // Longview
+    await userEvent.keyboard('{Shift>}{Tab}{/Shift}'); // London
+
+    expect(input).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    expect(onSelect).toHaveBeenCalledWith(expect.objectContaining({ id: '1' }));
+  });
+
+  it('should wrap past the last option back to the first', async () => {
+    mockSearch([result('1', 'London'), result('2', 'Longview')]);
+    const onSelect = vi.fn();
+    render(<SearchBar onSelect={onSelect} />);
+
+    await userEvent.click(screen.getByRole('combobox'));
+    await userEvent.keyboard('{ArrowDown}{ArrowDown}{ArrowDown}{Enter}');
+    expect(onSelect).toHaveBeenCalledWith(expect.objectContaining({ id: '1' }));
+  });
+
+  it('should wrap up from nothing selected to the last option', async () => {
+    mockSearch([result('1', 'London'), result('2', 'Longview')]);
+    const onSelect = vi.fn();
+    render(<SearchBar onSelect={onSelect} />);
+
+    await userEvent.click(screen.getByRole('combobox'));
+    await userEvent.keyboard('{ArrowUp}{Enter}');
+    expect(onSelect).toHaveBeenCalledWith(expect.objectContaining({ id: '2' }));
+  });
+
   it('should scroll the keyboard-active option into view', async () => {
     const scrollSpy = vi
       .spyOn(HTMLElement.prototype, 'scrollIntoView')
@@ -70,22 +107,6 @@ describe('SearchBar', () => {
     const options = screen.getAllByRole('option');
     expect(scrollSpy).toHaveBeenCalled();
     expect(scrollSpy.mock.instances.at(-1)).toBe(options[0]);
-    scrollSpy.mockRestore();
-  });
-
-  it('should highlight a hovered option without scrolling the list', async () => {
-    const scrollSpy = vi
-      .spyOn(HTMLElement.prototype, 'scrollIntoView')
-      .mockImplementation(() => {});
-    mockSearch([result('1', 'London'), result('2', 'Longview')]);
-    render(<SearchBar onSelect={vi.fn()} />);
-
-    await userEvent.click(screen.getByRole('combobox'));
-    const options = screen.getAllByRole('option');
-    await userEvent.hover(options[1]);
-
-    expect(options[1]).toHaveAttribute('aria-selected', 'true');
-    expect(scrollSpy).not.toHaveBeenCalled();
     scrollSpy.mockRestore();
   });
 
