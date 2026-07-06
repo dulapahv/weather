@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  compassPoint,
   convertDistance,
   convertPressure,
   formatDistance,
@@ -12,6 +13,19 @@ import {
 } from './units';
 
 describe('units', () => {
+  it('should map degrees to 16-point compass labels', () => {
+    expect(compassPoint(0)).toBe('N');
+    expect(compassPoint(225)).toBe('SW');
+    expect(compassPoint(90)).toBe('E');
+  });
+
+  it('should round to the nearest compass point and wrap at 360', () => {
+    expect(compassPoint(11)).toBe('N');
+    expect(compassPoint(12)).toBe('NNE');
+    expect(compassPoint(359)).toBe('N');
+    expect(compassPoint(-45)).toBe('NW');
+  });
+
   it('should treat hPa as the identity pressure unit', () => {
     expect(convertPressure(1013, 'hpa')).toBe(1013);
   });

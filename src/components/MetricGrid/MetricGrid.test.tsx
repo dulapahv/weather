@@ -16,7 +16,7 @@ describe('MetricGrid', () => {
     render(<MetricGrid weather={weather} units={DEFAULT_UNITS} />);
 
     expect(valueFor('Humidity')).toBe('64%');
-    expect(valueFor('Wind')).toBe('14 km/h');
+    expect(valueFor('Wind')).toBe('14 km/h SW');
     expect(valueFor('Pressure')).toBe('1,015 hPa');
     expect(valueFor('Visibility')).toBe('37 km');
     expect(valueFor('UV index')).toBe('0 · Low');
