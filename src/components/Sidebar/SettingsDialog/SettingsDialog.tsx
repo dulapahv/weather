@@ -80,11 +80,27 @@ export const SettingsDialog = ({ open, onClose }: Props) => {
 
 const DialogBody = ({ onClose }: { onClose: () => void }) => {
   const [importError, setImportError] = useState(false);
+  const [confirmReset, setConfirmReset] = useState(false);
 
   const units = usePreferences(s => s.units);
   const setUnit = usePreferences(s => s.setUnit);
   const resetDefaults = usePreferences(s => s.resetDefaults);
   const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    if (!confirmReset) return;
+    const timer = setTimeout(() => setConfirmReset(false), 4_000);
+    return () => clearTimeout(timer);
+  }, [confirmReset]);
+
+  const handleReset = () => {
+    if (!confirmReset) {
+      setConfirmReset(true);
+      return;
+    }
+    resetDefaults();
+    setConfirmReset(false);
+  };
 
   const handleImport = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -166,8 +182,8 @@ const DialogBody = ({ onClose }: { onClose: () => void }) => {
             Import
             <input type="file" accept="application/json" onChange={handleImport} hidden />
           </label>
-          <button type="button" className={styles.danger} onClick={resetDefaults}>
-            Restore defaults
+          <button type="button" className={styles.danger} onClick={handleReset} aria-live="polite">
+            {confirmReset ? 'Confirm restore?' : 'Restore defaults'}
           </button>
         </div>
         {importError ? (

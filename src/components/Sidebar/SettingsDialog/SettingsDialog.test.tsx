@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
@@ -19,6 +19,7 @@ const open = () => {
 
 describe('SettingsDialog', () => {
   afterEach(() => {
+    vi.useRealTimers();
     setThemeMock.mockReset();
     usePreferences.setState({ units: DEFAULT_UNITS, locations: [] });
   });
@@ -41,11 +42,32 @@ describe('SettingsDialog', () => {
     expect(setThemeMock).toHaveBeenCalledWith('dark');
   });
 
-  it('should restore defaults', async () => {
+  it('should not reset on the first click and ask for confirmation instead', async () => {
     usePreferences.getState().setUnit('temperature', 'fahrenheit');
     open();
     await userEvent.click(screen.getByRole('button', { name: /restore defaults/i }));
+    expect(usePreferences.getState().units.temperature).toBe('fahrenheit');
+    expect(screen.getByRole('button', { name: /confirm restore/i })).toBeInTheDocument();
+  });
+
+  it('should restore defaults on the confirming second click', async () => {
+    usePreferences.getState().setUnit('temperature', 'fahrenheit');
+    open();
+    await userEvent.click(screen.getByRole('button', { name: /restore defaults/i }));
+    await userEvent.click(screen.getByRole('button', { name: /confirm restore/i }));
     expect(usePreferences.getState().units).toEqual(DEFAULT_UNITS);
+    expect(screen.getByRole('button', { name: /restore defaults/i })).toBeInTheDocument();
+  });
+
+  it('should abandon the confirmation after a timeout', () => {
+    vi.useFakeTimers();
+    open();
+    fireEvent.click(screen.getByRole('button', { name: /restore defaults/i }));
+    expect(screen.getByRole('button', { name: /confirm restore/i })).toBeInTheDocument();
+    act(() => {
+      vi.advanceTimersByTime(4_000);
+    });
+    expect(screen.getByRole('button', { name: /restore defaults/i })).toBeInTheDocument();
   });
 
   it('should close via the close button', async () => {
