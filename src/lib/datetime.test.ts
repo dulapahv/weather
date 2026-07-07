@@ -37,6 +37,12 @@ describe('datetime formatting', () => {
     expect(formatNowInZone('Asia/Tokyo')).toMatch(/^\d{1,2}:\d{2}\s?(AM|PM)$/);
   });
 
+  it('should format a provided timestamp in the zone', () => {
+    const at = Date.UTC(2026, 6, 7, 12, 0);
+    expect(formatNowInZone('Asia/Tokyo', true, at)).toBe('9:00 PM');
+    expect(formatNowInZone('UTC', false, at)).toBe('12:00');
+  });
+
   it('should derive a readable city from an IANA zone', () => {
     expect(cityFromTimeZone('America/New_York')).toBe('New York');
     expect(cityFromTimeZone('Asia/Bangkok')).toBe('Bangkok');

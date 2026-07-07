@@ -24,6 +24,7 @@ import { cityFromTimeZone, formatNowInZone } from '@/lib/datetime';
 import { restrictToParentElement, restrictToVerticalAxis } from '@/lib/dnd-modifiers';
 import { formatTemperature } from '@/lib/units';
 import { resolveCondition } from '@/lib/weather-codes';
+import { useNow } from '@/hooks/useNow';
 import { useWeather, type Coordinates } from '@/hooks/useWeather';
 import type { Units } from '@/store/preferences';
 
@@ -61,6 +62,7 @@ export const LocationList = ({
     useSensor(PointerSensor, { activationConstraint: { distance: 4 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
+  const now = useNow();
 
   if (locations.length === 0) {
     return <p className={styles.empty}>No locations yet — search to add one.</p>;
@@ -93,6 +95,7 @@ export const LocationList = ({
             key={loc.id}
             loc={loc}
             units={units}
+            now={now}
             selected={loc.id === selectedId}
             onSelect={() => onSelect(loc.id)}
           />
@@ -141,11 +144,13 @@ export const LocationList = ({
 const SelectableRow = ({
   loc,
   units,
+  now,
   selected,
   onSelect
 }: {
   loc: DisplayLocation;
   units: Units;
+  now: number;
   selected: boolean;
   onSelect: () => void;
 }) => {
@@ -160,7 +165,7 @@ const SelectableRow = ({
   const sub = loc.pinned
     ? 'My Location'
     : weather
-      ? formatNowInZone(weather.location.timezone, units.clock !== '24h')
+      ? formatNowInZone(weather.location.timezone, units.clock !== '24h', now)
       : '';
 
   const name = loc.name || (weather ? cityFromTimeZone(weather.location.timezone) : '...');
