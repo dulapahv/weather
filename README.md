@@ -348,19 +348,24 @@ curl "https://weather.dulapahv.dev/api/og?lat=51.5074&lon=-0.1278&name=London" -
 ## Key decisions & trade-offs
 
 - **SWR (plus a small Zustand store) over Redux and React Query:** Redux is a general-purpose state container. It doesn't natively fetch or cache server data without adding RTK Query. Since almost all state in this app is server-owned (weather readings on a 5-minute cycle), I evaluated SWR and React Query instead. SWR won on fit and bundle size. It easily handles 5-minute polling, keeps location switches flicker-free, and deduplicates requests out of the box. React Query can do all this, but its extra machinery for data mutations and cache invalidation is overkill for a read-only app. For the tiny bit of true client state we do have (saved locations and unit preferences), a single Zustand store with localStorage persistence is plenty. Setting up Redux boilerplate for two objects didn't make sense.
-*The trade-off:* If the app eventually needs server writes, like user accounts or saving alerts, React Query's mutation tooling would easily justify its extra weight.
+
+  *The trade-off:* If the app eventually needs server writes, like user accounts or saving alerts, React Query's mutation tooling would easily justify its extra weight.
 
 - **Workers KV over a Durable Object for rate limiting:** The API limits IPs to 60 requests per minute. A Durable Object would count this perfectly, whereas KV's read-then-increment approach allows a few requests to slip through at window boundaries under heavy concurrent load. I chose KV anyway for two reasons: speed of delivery and fallback safety. First, I could ship KV confidently under a deadline. Because I kept the limiter as a pure function over a simple store interface, I could easily unit test it against an in-memory `Map` rather than spinning up a Workers runtime just to test a Durable Object. Second, to respect free-tier quotas, the limiter treats KV as best-effort. If KV fails or hits a limit, it gracefully falls back to an in-memory per-instance counter so the API never goes down due to its own guard.
-*The trade-off:* The rate limiting is slightly fuzzy. This is perfectly acceptable for a free API abuse guard. If we ever introduced paid quotas, we'd need to swap to a Durable Object, but the abstracted store interface makes that an easy pivot.
+
+  *The trade-off:* The rate limiting is slightly fuzzy. This is perfectly acceptable for a free API abuse guard. If we ever introduced paid quotas, we'd need to swap to a Durable Object, but the abstracted store interface makes that an easy pivot.
 
 - **Open-Meteo as the weather provider:** It's free, keyless, and covers everything from current conditions to multi-day forecasts.
-*The trade-off:* Its geocoder only handles place names. Instead of swapping providers entirely, `/api/search` falls back to Nominatim for postcodes, introducing a second dependency.
+
+  *The trade-off:* Its geocoder only handles place names. Instead of swapping providers entirely, `/api/search` falls back to Nominatim for postcodes, introducing a second dependency.
 
 - **Cloudflare Workers over Vercel:** Vercel is the default home for Next.js, but Cloudflare Workers offers a significantly more generous free tier for a public demo, most notably, zero bandwidth caps compared to Vercel Hobby's 100 GB monthly limit. This ensures a sudden traffic spike cannot take the app down or force an unexpected plan upgrade. Cloudflare also provides excellent global TTFB by executing code at the nearest of its 300+ edge locations. Operating directly on Workers grants native platform bindings configured entirely in `wrangler.jsonc` without external SDKs or API keys: Workers KV powers the rate limiter, Flagship handles runtime feature flags, and the edge `cf` object provides instant IP geolocation for `/api/geo`. For media optimization, a custom image loader (`image-loader.ts`) rewrites `next/image` URLs to utilize Cloudflare Image Transformations (`/cdn-cgi/image/...`), shifting resizing and format conversion to the edge automatically.
-*The trade-off:* Vercel provides a zero-config deployment experience with native, first-class Next.js support. Deploying to Workers relies on the community-driven OpenNext adapter, which adds an extra build step, can occasionally lag behind major Next.js releases, and introduces environment constraints such as lack of native Windows build support. The free plan also caps the compressed Worker bundle at 3 MB, so heavy server-side dependencies are a real constraint to watch.
+
+  *The trade-off:* Vercel provides a zero-config deployment experience with native, first-class Next.js support. Deploying to Workers relies on the community-driven OpenNext adapter, which adds an extra build step, can occasionally lag behind major Next.js releases, and introduces environment constraints such as lack of native Windows build support. The free plan also caps the compressed Worker bundle at 3 MB, so heavy server-side dependencies are a real constraint to watch.
 
 - **Deploying to production from day one:** The CI pipeline and Cloudflare deployment were built before any UI. This surfaced platform constraints early (e.g., OpenNext not building on Windows).
-*The trade-off:* Higher initial setup time, but it eliminates end-of-project deployment anxiety.
+
+  *The trade-off:* Higher initial setup time, but it eliminates end-of-project deployment anxiety.
 
 ## Testing
 
@@ -461,10 +466,13 @@ Requirements were derived from the coding-exercise brief and the job description
   - For example, typing in the search bar doesn't cause other components to re-render:
   <figure>
     <img src="docs/images/react-scan-search-isolation.png" alt="React Scan overlay while typing &quot;bang&quot; into the search bar: only the SearchBar component is outlined as re-rendering, while the location list and forecast panels stay untouched at 165 FPS." width="640"/>
+    <br />
     <figcaption>Typing in the search bar re-renders only the SearchBar — every other component stays idle.</figcaption>
   </figure>
+  <br />
   <figure>
     <img src="docs/images/react-scan-render-history.png" alt="React Scan history panel after typing in the search bar: four SearchBar renders of 5 to 27 milliseconds each, and SearchBar is the only entry in the ranked re-render list." width="640"/>
+    <br />
     <figcaption>React Scan's render history confirms SearchBar is the only component that re-rendered.</figcaption>
   </figure>
 - [x] The application shall conform to WCAG 2.2 AA guidelines.
@@ -501,16 +509,20 @@ Requirements were derived from the coding-exercise brief and the job description
 - [x] Performance measurements shall be documented using Lighthouse and React Profiler.
   <figure>
     <img src="docs/images/lighthouse-scores.png" alt="Lighthouse report: Performance 100, Accessibility 100, Best Practices 96, SEO 100, with First Contentful Paint 0.3 s, Largest Contentful Paint 0.6 s, Total Blocking Time 10 ms, Cumulative Layout Shift 0.001, and Speed Index 1.0 s." width="640"/>
+    <br />
     <figcaption>Lighthouse scores for the production build: Performance 100, Accessibility 100, Best Practices 96, SEO 100.</figcaption>
   </figure>
+  <br />
   <figure>
     <img src="docs/images/profiler-location-switch.png" alt="React Profiler flamegraph of a location switch: a single 27.6 ms commit rooted at AppShell, the Next.js router tree untouched, and HourlyForecast the largest child at 8 ms." width="640"/>
+    <br />
     <figcaption>Switching locations costs one 27.6 ms commit, scoped to AppShell with the router tree untouched.</figcaption>
   </figure>
 - [x] The application shall target a Lighthouse Accessibility score of 95+.
   - The zero-violation axe gate in CI covers the same rule set.
   <figure>
     <img src="docs/images/lighthouse-accessibility.png" alt="Lighthouse report with the Accessibility category expanded, showing a score of 100." width="480"/>
+    <br />
     <figcaption>Lighthouse Accessibility score of 100.</figcaption>
   </figure>
 - [x] The application shall function as a website and a Progressive Web App (PWA).
