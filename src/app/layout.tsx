@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Geist } from 'next/font/google';
 
 import type { WebApplication, WithContext } from 'schema-dts';
 
@@ -10,7 +10,7 @@ import { ThemeProvider } from '@/providers/ThemeProvider';
 
 import './globals.scss';
 
-const inter = Inter({
+const geist = Geist({
   subsets: ['latin'],
   weight: 'variable'
 });
@@ -68,7 +68,7 @@ export const viewport: Viewport = {
 
 const RootLayout = ({ children }: LayoutProps<'/'>) => {
   return (
-    <html lang="en" className={inter.className} suppressHydrationWarning>
+    <html lang="en" className={geist.className} suppressHydrationWarning>
       <body>
         <script
           type="application/ld+json"
