@@ -53,7 +53,6 @@
 .sub {
   color: var(--color-muted);
   font-size: $font-size-xs;
-  font-variant-numeric: tabular-nums;
 }
 
 .status {
@@ -74,13 +73,11 @@
   font-size: $font-size-2xl;
   font-weight: $font-weight-semibold;
   line-height: 1;
-  font-variant-numeric: tabular-nums;
 }
 
 .hilo {
   color: var(--color-muted);
   font-size: $font-size-xs;
-  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
