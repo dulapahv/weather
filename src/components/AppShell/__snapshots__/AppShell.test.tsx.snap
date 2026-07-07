@@ -390,7 +390,7 @@ exports[`AppShell (home page) > should match the snapshot for the loaded home pa
                 <p
                   class="source"
                 >
-                  Your location
+                  My location
                 </p>
               </div>
               <button
@@ -447,7 +447,7 @@ exports[`AppShell (home page) > should match the snapshot for the loaded home pa
                 <p
                   class="range"
                 >
-                  H: 33° · L: 22°
+                  H: 33° L: 22°
                 </p>
               </div>
             </div>

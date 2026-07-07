@@ -17,7 +17,7 @@ describe('CurrentConditions', () => {
       <CurrentConditions
         weather={weather}
         locationLabel="London"
-        sourceNote="Your location"
+        sourceNote="My location"
         shareEnabled
       />
     );
@@ -25,7 +25,7 @@ describe('CurrentConditions', () => {
     expect(screen.getByRole('heading', { name: 'London' })).toBeInTheDocument();
     expect(screen.getByText('25°')).toBeInTheDocument();
     expect(screen.getByText('Partly cloudy')).toBeInTheDocument(); // code 2
-    expect(screen.getByText('Your location')).toBeInTheDocument();
+    expect(screen.getByText('My location')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /share/i })).toBeInTheDocument();
   });
 
@@ -38,6 +38,6 @@ describe('CurrentConditions', () => {
     render(<CurrentConditions weather={weather} locationLabel="London" shareEnabled={false} />);
 
     expect(screen.queryByRole('button', { name: /share/i })).toBeNull();
-    expect(screen.queryByText('Your location')).toBeNull();
+    expect(screen.queryByText('My location')).toBeNull();
   });
 });

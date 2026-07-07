@@ -55,7 +55,7 @@ export const CurrentConditions = ({ weather, locationLabel, sourceNote, shareEna
           </p>
           {today ? (
             <p className={styles.range}>
-              H: {formatTemperature(today.temperatureMax ?? current.temperature)} · L:{' '}
+              H: {formatTemperature(today.temperatureMax ?? current.temperature)} L:{' '}
               {formatTemperature(today.temperatureMin ?? current.temperature)}
             </p>
           ) : null}
