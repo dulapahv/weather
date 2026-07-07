@@ -1,6 +1,9 @@
 import { ImageResponse } from 'next/og';
 
+import { getRateLimitStore } from '@/lib/api/bindings';
+import { errorResponse } from '@/lib/api/http';
 import { fetchForecast } from '@/lib/api/provider';
+import { clientKey, rateLimit } from '@/lib/api/rate-limit';
 import { toWeather } from '@/lib/api/transform';
 import { SITE_DESCRIPTION, SITE_TITLE } from '@/lib/site';
 import { formatTemperature } from '@/lib/units';
@@ -86,6 +89,11 @@ const brandCard = async (origin: string) => {
 };
 
 export const GET = async (request: Request) => {
+  const limit = await rateLimit(getRateLimitStore(), `og:${clientKey(request)}`);
+  if (!limit.ok) {
+    return errorResponse(429, 'Too many requests. Please slow down and try again.');
+  }
+
   // The icon must be fetched from a URL the Worker can actually reach, not the NEXT_PUBLIC_SITE_URL.
   const { origin, searchParams } = new URL(request.url);
   const latRaw = searchParams.get('lat');
@@ -185,7 +193,7 @@ export const GET = async (request: Request) => {
       height: 630,
       fonts: [...fonts],
       headers: {
-        'cache-control': 'public, max-age=600, s-maxage=600'
+        'cache-control': 'public, max-age=300, s-maxage=300'
       }
     }
   );

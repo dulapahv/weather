@@ -14,8 +14,8 @@ export const generateMetadata = async ({
   const { lat, lon, name } = await searchParams;
   if (!lat || !lon || !name) return {};
 
-  // Force refresh every 10 minutes as per our 10-minute OG image cache policy.
-  const v = String(Math.floor(Date.now() / 600_000));
+  // Force refresh every 5 minutes, matching the OG image cache TTL and the app's poll interval.
+  const v = String(Math.floor(Date.now() / 300_000));
   const query = new URLSearchParams({ lat, lon, name, v }).toString();
   const ogUrl = `/api/og?${query}`;
 
