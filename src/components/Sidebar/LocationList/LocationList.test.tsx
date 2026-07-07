@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { toWeather } from '@/lib/api/transform';
 import { DEFAULT_UNITS } from '@/store/preferences';
@@ -65,6 +65,8 @@ describe('LocationList', () => {
     });
   });
 
+  afterEach(() => vi.useRealTimers());
+
   it('should show an empty hint when there are no locations', () => {
     renderList({ locations: [] });
     expect(screen.getByText('No locations yet — search to add one.')).toBeInTheDocument();
@@ -114,6 +116,26 @@ describe('LocationList', () => {
     const row = screen.getByRole('button', { name: /Paris/ });
     expect(row).toHaveTextContent('Partly cloudy');
     expect(row).toHaveTextContent('25°');
+  });
+
+  it('should update the local time label when the minute ticks over', () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2026-07-07T11:59:30Z'));
+    useWeatherMock.mockReturnValue({
+      weather: toWeather(forecastFixture, { latitude: 48.8, longitude: 2.3 }),
+      error: undefined,
+      isLoading: false
+    });
+    renderList({ locations: [paris] });
+
+    const row = screen.getByRole('button', { name: /Paris/ });
+    const before = row.textContent;
+
+    act(() => {
+      vi.advanceTimersByTime(60_000);
+    });
+    expect(row.textContent).not.toBe(before);
+    vi.useRealTimers();
   });
 
   it('should keep the pinned row and expose remove controls in edit mode', async () => {

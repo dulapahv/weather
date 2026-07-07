@@ -31,13 +31,13 @@ export const formatWeekday = (iso: string): string => {
   }).format(wallClock(iso));
 };
 
-export const formatNowInZone = (timeZone: string, hour12 = true): string => {
+export const formatNowInZone = (timeZone: string, hour12 = true, at = Date.now()): string => {
   return new Intl.DateTimeFormat(LOCALE, {
     hour: hour12 ? 'numeric' : '2-digit',
     minute: '2-digit',
     hour12,
     timeZone
-  }).format(new Date());
+  }).format(at);
 };
 
 export const cityFromTimeZone = (timeZone: string): string => {
