@@ -32,7 +32,7 @@ import styles from './AppShell.module.scss';
 const CURRENT_ID = 'current';
 
 const sourceNote = (source: GeoSource): string => {
-  if (source === 'gps') return 'Your location';
+  if (source === 'gps') return 'My location';
   if (source === 'ip') return 'Approximate location';
   return 'Default location';
 };
